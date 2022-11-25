@@ -1,0 +1,19 @@
+{
+  "name": "login-nodejs-express-jwt",
+  "version": "1.0.0",
+  "description": "Sistema de Login com NodeJs - Express - JWT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsabelaBaseggio/login-nodejs-express-jwt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IsabelaBaseggio/login-nodejs-express-jwt/issues"
+  },
+  "homepage": "https://github.com/IsabelaBaseggio/login-nodejs-express-jwt#readme"
+}
