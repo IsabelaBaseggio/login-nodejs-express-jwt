@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    padding: 20px;
+    font-size: 1.3rem;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    width: 100vw;
+    height: 100vh;
+}
+
+section#icon{
+    display: grid;
+    place-items: center;
+}
+
+section#icon div#iconMain {
+    width: 75%;
+    height: 75%;
+    background: url("./images/mainLoginSystem.svg") no-repeat center center;
+    background-size: contain;
+}
