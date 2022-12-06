@@ -1,28 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400;500;600;700;800&display=swap");
+
 * {
-    margin: 0;
-    padding: 0;
-    outline: none;
-    box-sizing: border-box;
-    text-decoration: none;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Karla", Arial, Helvetica, sans-serif;
 }
 
 body {
-    padding: 20px;
-    font-size: 1.3rem;
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    width: 100vw;
-    height: 100vh;
+  font-size: 1.3rem;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  width: 100vw;
+  height: 100vh;
+  background-color: #a7bed3;
 }
 
-section#icon{
-    display: grid;
-    place-items: center;
+section#icon {
+  display: grid;
+  place-items: center;
 }
 
 section#icon div#iconMain {
-    width: 75%;
-    height: 75%;
-    background: url("./images/mainLoginSystem.svg") no-repeat center center;
-    background-size: contain;
+  width: 75%;
+  height: 75%;
+  background: url("./images/mainLoginSystem.svg") no-repeat center center;
+  background-size: contain;
+}
+
+main#main {
+  background-color: #fff;
+
+  display: grid;
+  grid-template-rows: 2fr 4fr;
+  justify-content: center;
+  align-items: center;
+}
+
+main#main h1 {
+  font-weight: 100;
+}
+
+main#main ul {
+  height: 200px;
+  border-radius: 20px;
+  border: 1px solid #adb5bd;
+  list-style-type: none;
+
+  display: grid;
+}
+
+main#main ul li {
+  width: 100%;
+  height: 100%;
+}
+
+main#main ul li a {
+  color: #000;
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  place-items: center;
+
+  transition: all 0.3s ease-in-out;
+}
+
+main#main ul li a:hover {
+  font-size: 1.6rem;
 }
