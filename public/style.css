@@ -41,11 +41,12 @@ section#icon div#iconRegister{
 }
 
 header {
+  height: 100%;
   background-color: #fff;
   padding: 25px;
 
   display: grid;
-  grid-template-rows: 1fr 2fr;
+  grid-template-rows: 30% 70%;
   justify-items: center;
   align-items: center;
 }
@@ -87,41 +88,76 @@ header#headerMain ul li a:hover {
 }
 
 /* Register Header */
-header#headerRegister div{
+header#headerRegister div#divForm{
   width: 85%;
   height: 100%;
   border-radius: 20px;
   border: 1px solid #adb5bd;
 
   display: grid;
+  grid-template-rows: 25% 70%;
   justify-items: center;
   align-items: center;
-  gap: 10px;
 }
 
-header#headerRegister div h2{
+header#headerRegister div#divForm h2{
   width: auto;
   font-weight: 200;
-  padding: 10px;
 }
 
-header#headerRegister div form{
+header#headerRegister div#divForm form{
   width: 100%;
+  height: 100%;
+
+  overflow: auto;
 
   display: grid;
   justify-items: center;
   align-items: center;
   gap: 10px;
+
 }
 
-header#headerRegister div form label{
+header#headerRegister div#divForm form::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	background-color: #fff;
+}
+
+header#headerRegister div#divForm form::-webkit-scrollbar
+{
+	width: 4px;
+	background-color: #fff;
+}
+
+header#headerRegister div#divForm form::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #adb5bd;
+}
+
+header#headerRegister div#divForm form label{
   width: 90%;
   margin-top: 15px;
 }
 
-header#headerRegister form input{
+header#headerRegister div#divForm input{
   width: 90%;
   padding: 10px;
   border-radius: 20px;
   border: 1px solid #adb5bd;
+}
+
+div#divForm form button{
+  width: 50%;
+  padding: 10px;
+  margin: 15px 0;
+  border-radius: 25px;
+
+  cursor: pointer;
+
+  font-size: 1em;
+  color: #fff;
+  background-color: green;
+  border-style: none;
 }
