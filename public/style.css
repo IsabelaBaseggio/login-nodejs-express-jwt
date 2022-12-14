@@ -154,6 +154,8 @@ div div#divForm form::-webkit-scrollbar-thumb
 div div#divForm form label{
   width: 90%;
   margin-top: 15px;
+
+  font-weight: 300;
 }
 
 div div#divForm input{
