@@ -30,13 +30,13 @@ section#icon div {
 
 /* Main Icon */
 section#icon div#iconMain{
-  background: url("./images/mainLoginSystem.svg") no-repeat center center;
+  background: url("../images/mainLoginSystem.svg") no-repeat center center;
   background-size: contain;
 }
 
 /* Register Icon*/
 section#icon div#iconRegister{
-  background: url("./images/register.svg") no-repeat center center;
+  background: url("../images/register.svg") no-repeat center center;
   background-size: contain;
 }
 
@@ -163,6 +163,13 @@ div div#divForm input{
   padding: 10px;
   border-radius: 20px;
   border: 1px solid #adb5bd;
+
+  font-size: 1.1rem;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+  -webkit-text-fill-color: #000;
 }
 
 div form button{
