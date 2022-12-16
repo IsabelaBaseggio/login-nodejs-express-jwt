@@ -6,15 +6,7 @@ const mainIndex = (req, res) => {
   }
 };
 
-const mainRegister = (req, res) => {
-  try {
-    res.render("main/register");
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
-}
 
 module.exports = {
   mainIndex,
-  mainRegister,
 };

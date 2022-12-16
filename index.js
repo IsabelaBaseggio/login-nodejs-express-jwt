@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const mainRoute = require("./routes/main");
+const userRoute = require("./routes/user");
 const connectDB = require("./database/db");
 
 const app = express();
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 app.use(mainRoute);
+app.use("/user", userRoute);
 
 // Server
 app.listen(port, () => {
