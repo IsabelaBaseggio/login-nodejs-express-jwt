@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const mainRoute = require("./routes/main");
+const connectDB = require("./database/db");
 
 const app = express();
 const port = process.env.PORT;
@@ -13,6 +14,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // EJS
 app.set("view engine", "ejs");
+
+// Mongoose - DB Connection
+connectDB();
 
 // Public
 app.use(express.static(path.join(__dirname, "public")));
