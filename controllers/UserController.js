@@ -1,38 +1,44 @@
 const User = require("../models/User");
 
-const registerPage = (req, res) => {
+// let messages = [];
+
+const pagesRegister = (req, res) => {
     try {
-      res.render("user/register");
+      res.render("user/register", {messages: null});
     } catch (err) {
       res.status(500).send({ error: err.message });
     }
   }
 
 const registerUser = async (req, res) => {
-    var errors = [];
+    let messages = [];
 
     if(!req.body.firstName || typeof req.body.firstName == undefined || req.body.firstName == null) {
-        errors.push({text: "Invalid First Name"});
+        messages.push({text: "Invalid First Name"});
     }
 
     if(!req.body.lastName || typeof req.body.lastName == undefined || req.body.lastName == null) {
-        errors.push({text: "Invalid Last Name"});
+        messages.push({text: "Invalid Last Name"});
+    }
+
+    if(!req.body.email || typeof req.body.email == undefined || req.body.email == null) {
+        messages.push({text: "Invalid Email"});
     }
 
     if(!req.body.password || typeof req.body.password == undefined || req.body.password == null) {
-        errors.push({text: "Invalid Password"});
+        messages.push({text: "Invalid Password"});
     }
 
-    if(req.body.password.length <= 7){
-        errors.push({text: "Password Too Short"})
+    if(req.body.password.length <= 7 && req.body.password.length > 0){
+        messages.push({text: "Password Too Short"})
     }
 
-    if(errors.length > 0){
-        res.render('main/register', {errors: errors});
+    if(messages.length > 0){
+        res.render('user/register', {messages: messages, type: "danger"});
     }
 }
 
 module.exports = {
-    registerPage,
+    pagesRegister,
     registerUser
 }

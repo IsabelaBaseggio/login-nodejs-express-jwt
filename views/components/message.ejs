@@ -1,0 +1,6 @@
+<section class="message message-<%= type %>">
+    <span id="close-message"><i class="material-icons">close</i></span>
+    <% messages.forEach( message => { %>
+    <p><%= message.text %></p>
+    <% }) %>
+</section>

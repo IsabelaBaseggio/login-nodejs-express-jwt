@@ -110,7 +110,7 @@ header#headerRegister div div#divForm{
   border: 1px solid #adb5bd;
 
   display: grid;
-  grid-template-rows: 25% 70%;
+  grid-template-rows: 25% auto;
   justify-items: center;
   align-items: center;
 }
@@ -131,6 +131,17 @@ div div#divForm form{
   align-items: center;
   gap: 10px;
 
+}
+
+section.message{
+  width: 90%;
+  height: auto;
+  color: red;
+  text-align: right;
+}
+
+section.message p{
+  font-size: 1rem;
 }
 
 div div#divForm form::-webkit-scrollbar-track

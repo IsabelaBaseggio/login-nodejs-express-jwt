@@ -23,7 +23,7 @@ connectDB();
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
-app.use(mainRoute);
+app.use("/", mainRoute);
 app.use("/user", userRoute);
 
 // Server
