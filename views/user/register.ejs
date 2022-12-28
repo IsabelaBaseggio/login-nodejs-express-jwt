@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style.css" />
     <title>Login System</title>
   </head>
   <body>
@@ -19,21 +19,43 @@
         <div id="divForm">
           <h2>Sign Up</h2>
           <form action="/user/register" method="post">
-           
-            <% if(messages) { %> 
-              <%- include('../components/message', {type: type,
-            messages: messages}) %> 
-            <% } %>
+            <% if(messages) { %> <%- include('../components/message', {type:
+            type, messages: messages}) %> <% } %> 
+            
+            <% if(valuesForm) {%>
+            <label for="firstName">First Name</label>
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              value="<%= valuesForm.firstName %>"
+            />
+            <label for="lastName">Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              value="<%= valuesForm.lastName %>"
+            />
+            <label for="email">Email</label>
+            <input
+              type="text"
+              name="email"
+              id="email"
+              value="<%= valuesForm.email %>"
+            />
 
+            <% } else { %>
             <label for="firstName">First Name</label>
             <input type="text" name="firstName" id="firstName" />
             <label for="lastName">Last Name</label>
             <input type="text" name="lastName" id="lastName" />
             <label for="email">Email</label>
             <input type="text" name="email" id="email" />
+            <% } %>
             <label for="password">Password</label>
             <input type="password" name="password" id="password" />
-            <button type="submit">Register</button>
+            <button type="submit" id="register">Register</button>
           </form>
         </div>
 
@@ -43,5 +65,7 @@
         </div>
       </div>
     </header>
+
+    <script src="/script.js"></script>
   </body>
 </html>

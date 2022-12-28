@@ -2,9 +2,10 @@ const User = require("../models/User");
 
 // let messages = [];
 
+
 const pagesRegister = (req, res) => {
     try {
-      res.render("user/register", {messages: null});
+      res.render("user/register", {messages: null, valuesForm: null});
     } catch (err) {
       res.status(500).send({ error: err.message });
     }
@@ -12,7 +13,14 @@ const pagesRegister = (req, res) => {
 
 const registerUser = async (req, res) => {
     let messages = [];
+    let valuesForm = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email
+    };
 
+
+    // Form Validation
     if(!req.body.firstName || typeof req.body.firstName == undefined || req.body.firstName == null) {
         messages.push({text: "Invalid First Name"});
     }
@@ -22,7 +30,7 @@ const registerUser = async (req, res) => {
     }
 
     if(!req.body.email || typeof req.body.email == undefined || req.body.email == null) {
-        messages.push({text: "Invalid Email"});
+        messages.push({text: "Invalid Email" });
     }
 
     if(!req.body.password || typeof req.body.password == undefined || req.body.password == null) {
@@ -34,7 +42,7 @@ const registerUser = async (req, res) => {
     }
 
     if(messages.length > 0){
-        res.render('user/register', {messages: messages, type: "danger"});
+        res.render('user/register', {messages: messages, type: "danger", valuesForm: valuesForm});
     }
 }
 
