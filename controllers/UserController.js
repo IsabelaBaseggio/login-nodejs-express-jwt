@@ -1,4 +1,6 @@
-const User = require("../models/User");
+const mongoose = require("mongoose");
+require("../models/User");
+const User = mongoose.model("Users");
 
 // let messages = [];
 
@@ -43,6 +45,17 @@ const registerUser = async (req, res) => {
 
     if(messages.length > 0){
         res.render('user/register', {messages: messages, type: "danger", valuesForm: valuesForm});
+    } else {
+
+        // Check if email is already registered
+        User.findOne({email: valuesForm.email}).then((user) => {
+            if(user) {
+                messages.push({text: "Email Is Already Registered"})
+                res.render('user/register', {messages: messages, type: "danger", valuesForm: valuesForm})
+            }
+        })
+
+
     }
 }
 
