@@ -22,27 +22,27 @@
             <% if(messages) { %> <%- include('../components/message', {type:
             type, messages: messages}) %> <% } %> 
             
-            <% if(valuesForm) {%>
+            <% if(values) {%>
             <label for="firstName">First Name</label>
             <input
               type="text"
               name="firstName"
               id="firstName"
-              value="<%= valuesForm.firstName %>"
+              value="<%= values.firstName %>"
             />
             <label for="lastName">Last Name</label>
             <input
               type="text"
               name="lastName"
               id="lastName"
-              value="<%= valuesForm.lastName %>"
+              value="<%= values.lastName %>"
             />
             <label for="email">Email</label>
             <input
               type="text"
               name="email"
               id="email"
-              value="<%= valuesForm.email %>"
+              value="<%= values.email %>"
             />
 
             <% } else { %>

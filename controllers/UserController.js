@@ -7,7 +7,7 @@ const User = mongoose.model("Users");
 
 const pagesRegister = (req, res) => {
     try {
-      res.render("user/register", {messages: null, valuesForm: null});
+      res.render("user/register", {messages: null, values: null});
     } catch (err) {
       res.status(500).send({ error: err.message });
     }
@@ -15,7 +15,7 @@ const pagesRegister = (req, res) => {
 
 const registerUser = async (req, res) => {
     let messages = [];
-    let valuesForm = {
+    let values = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email
@@ -44,14 +44,27 @@ const registerUser = async (req, res) => {
     }
 
     if(messages.length > 0){
-        res.render('user/register', {messages: messages, type: "danger", valuesForm: valuesForm});
+        res.render('user/register', {messages: messages, type: "danger", values: values});
     } else {
 
         // Check if email is already registered
-        User.findOne({email: valuesForm.email}).then((user) => {
+        User.findOne({email: values.email}).then((user) => {
             if(user) {
                 messages.push({text: "Email Is Already Registered"})
-                res.render('user/register', {messages: messages, type: "danger", valuesForm: valuesForm})
+                res.render('user/register', {messages: messages, type: "danger", values: values})
+            } else {
+                // Registering new user
+                const newUser = new User({...values, password: req.body.password});
+
+                try {
+                    newUser.save().then(() => {
+                        // messages.push({text: "User Successfully Created"});
+
+                        res.redirect('/user/main');
+                    })
+                } catch (err) {
+                    res.status(500).send({ error: err.message});
+                }
             }
         })
 
@@ -59,7 +72,16 @@ const registerUser = async (req, res) => {
     }
 }
 
+const mainUser = (req, res) => {
+    try {
+      res.render("user/main");
+    } catch (err) {
+      res.status(500).send({ error: err.message });
+    }
+  }
+
 module.exports = {
     pagesRegister,
-    registerUser
+    registerUser,
+    mainUser
 }
