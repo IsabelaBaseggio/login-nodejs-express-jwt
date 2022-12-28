@@ -41,7 +41,7 @@ section#icon div#iconRegister{
 }
 
 header {
-  height: 100%;
+  height: 100vh;
   background-color: #fff;
   padding: 25px;
 
@@ -133,15 +133,26 @@ div div#divForm form{
 
 }
 
+/* Message */
 section.message{
   width: 90%;
   height: auto;
-  color: red;
-  text-align: right;
 }
 
 section.message p{
   font-size: 1rem;
+}
+
+section.message-danger{
+  color: red;
+}
+
+section.message-form{
+  text-align: right;
+}
+
+section.message-form span{
+  display: none;
 }
 
 div div#divForm form::-webkit-scrollbar-track
