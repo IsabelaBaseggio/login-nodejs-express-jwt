@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
+
+    <% if(messages) { %> <%- include('../components/message', {type:
+        type, messages: messages}) %> <% } %> 
     Main User
 
 </body>

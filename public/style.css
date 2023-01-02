@@ -146,6 +146,9 @@ section.message p{
 section.message-danger{
   color: red;
 }
+section.message-success{
+  color: green;
+}
 
 section.message-form{
   text-align: right;

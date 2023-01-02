@@ -6,6 +6,6 @@ routes.get("/register", UserController.pagesRegister);
 
 routes.post("/register", UserController.registerUser);
 
-routes.get("/main", UserController.mainUser);
+routes.get("/", UserController.mainUser);
 
 module.exports = routes;

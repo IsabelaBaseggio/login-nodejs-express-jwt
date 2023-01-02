@@ -1,8 +1,10 @@
+const { type } = require("@hapi/joi/lib/extend");
 const mongoose = require("mongoose");
 require("../models/User");
 const User = mongoose.model("Users");
 
-// let messages = [];
+let messages = [];
+let typeMsg = '';
 
 
 const pagesRegister = (req, res) => {
@@ -14,7 +16,6 @@ const pagesRegister = (req, res) => {
   }
 
 const registerUser = async (req, res) => {
-    let messages = [];
     let values = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -22,16 +23,21 @@ const registerUser = async (req, res) => {
     };
 
 
+    function validadeEmail(email){
+        let stringEmail = /\S+@\S+\.\S+/;
+        return stringEmail.test(email);
+    }
+
     // Form Validation
-    if(!req.body.firstName || typeof req.body.firstName == undefined || req.body.firstName == null) {
+    if(!values.firstName || typeof values.firstName == undefined || values.firstName == null) {
         messages.push({text: "Invalid First Name"});
     }
 
-    if(!req.body.lastName || typeof req.body.lastName == undefined || req.body.lastName == null) {
+    if(!values.lastName || typeof values.lastName == undefined || values.lastName == null) {
         messages.push({text: "Invalid Last Name"});
     }
 
-    if(!req.body.email || typeof req.body.email == undefined || req.body.email == null) {
+    if(!values.email || typeof values.email == undefined || values.email == null || validadeEmail(values.email) == false) {
         messages.push({text: "Invalid Email" });
     }
 
@@ -44,23 +50,26 @@ const registerUser = async (req, res) => {
     }
 
     if(messages.length > 0){
-        res.render('user/register', {messages: messages, type: "danger", values: values});
+        typeMsg = 'danger';
+        res.render('user/register', {messages: messages, type: typeMsg, values: values});
     } else {
 
         // Check if email is already registered
         User.findOne({email: values.email}).then((user) => {
             if(user) {
                 messages.push({text: "Email Is Already Registered"})
-                res.render('user/register', {messages: messages, type: "danger", values: values})
+                typeMsg = 'danger';
+                res.render('user/register', {messages: messages, type: typeMsg, values: values})
             } else {
                 // Registering new user
                 const newUser = new User({...values, password: req.body.password});
 
                 try {
                     newUser.save().then(() => {
-                        // messages.push({text: "User Successfully Created"});
+                    messages.push({text: "User Successfully Created"});
+                    typeMsg = 'success';
 
-                        res.redirect('/user/main');
+                    res.redirect('/user/');
                     })
                 } catch (err) {
                     res.status(500).send({ error: err.message});
@@ -74,7 +83,7 @@ const registerUser = async (req, res) => {
 
 const mainUser = (req, res) => {
     try {
-      res.render("user/main");
+      res.render("user/main", {messages: null, type: null});
     } catch (err) {
       res.status(500).send({ error: err.message });
     }
