@@ -20,7 +20,7 @@
           <h2>Sign Up</h2>
           <form action="/user/register" method="post">
             <% if(messages) { %> <%- include('../components/message', {type:
-            type, messages: messages}) %> <% } %> 
+            type, messages: messages, typeClass: 'form'}) %> <% } %> 
             
             <% if(values) {%>
             <label for="firstName">First Name</label>

@@ -66,9 +66,7 @@ const registerUser = async (req, res) => {
 
                 try {
                     newUser.save().then(() => {
-                    messages.push({text: "User Successfully Created"});
-                    typeMsg = 'success';
-
+                    req.flash('success', 'User Successfully Created')
                     res.redirect('/user/');
                     })
                 } catch (err) {

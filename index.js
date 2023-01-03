@@ -3,15 +3,29 @@ const express = require("express");
 const path = require("path");
 const mainRoute = require("./routes/main");
 const userRoute = require("./routes/user");
+const session = require('express-session');
+const flash = require('connect-flash');
 const connectDB = require("./database/db");
 
+// Init Express App
 const app = express();
+
+// Port Number
 const port = process.env.PORT;
 
-//Configurações
+//Configs
 
-// Outros
+// Parse JSON Data
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Session & Flash
+app.use(session({
+  secret: process.env.SECRET,
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(flash());
 
 // EJS
 app.set("view engine", "ejs");
