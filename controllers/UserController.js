@@ -2,6 +2,7 @@ const { type } = require("@hapi/joi/lib/extend");
 const mongoose = require("mongoose");
 require("../models/User");
 const User = mongoose.model("Users");
+const bcrypt = require('bcryptjs');
 
 let messages = [];
 let typeMsg = '';
@@ -62,7 +63,7 @@ const registerUser = async (req, res) => {
                 res.render('user/register', {messages: messages, type: typeMsg, values: values})
             } else {
                 // Registering new user
-                const newUser = new User({...values, password: req.body.password});
+                const newUser = new User({...values, password: bcrypt.hashSync(req.body.password)});
 
                 try {
                     newUser.save().then(() => {
