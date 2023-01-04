@@ -21,7 +21,7 @@
           <form action="/user/register" method="post">
             <% if(messages) { %> <%- include('../components/message', {type:
             type, messages: messages, typeClass: 'form'}) %> <% } %> 
-            
+
             <% if(values) {%>
             <label for="firstName">First Name</label>
             <input
