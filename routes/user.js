@@ -10,4 +10,6 @@ routes.get("/", UserController.mainUser);
 
 routes.get('/login', UserController.loginPage);
 
+routes.post('/login', UserController.loginUser);
+
 module.exports = routes;
