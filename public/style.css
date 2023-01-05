@@ -40,6 +40,12 @@ section#icon div#iconRegister{
   background-size: contain;
 }
 
+/* Login Icon */
+section#icon div#iconLogin{
+  background: url("../images/loginWeb.svg") no-repeat center center;
+  background-size: contain;
+}
+
 header {
   height: 100vh;
   background-color: #fff;
@@ -216,7 +222,15 @@ div form button:hover{
   background-color: #CC956A;
 }
 
-header#headerRegister div div#refSignIn{
+div div#divForm a {
+  font-size: 1rem;
+  color: #ff6584;
+  text-decoration: underline;
+
+  padding-bottom: 25px;
+}
+
+header#headerRegister div div#refRegisterLogin{
   width: 100%;
   height: 100%;
 
@@ -227,10 +241,10 @@ header#headerRegister div div#refSignIn{
   align-items: center;
 }
 
-div div#refSignIn span{
+div div#refRegisterLogin span{
   color: #3f3d5685;
 }
 
-div div#refSignIn a{
+div div#refRegisterLogin a{
   color: #cc8545;
 }

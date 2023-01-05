@@ -8,7 +8,7 @@ let messages = [];
 let typeMsg = '';
 
 
-const pagesRegister = (req, res) => {
+const registerPage = (req, res) => {
     try {
       res.render("user/register", {messages: null, values: null});
     } catch (err) {
@@ -80,6 +80,14 @@ const registerUser = async (req, res) => {
     }
 }
 
+const loginPage = (req, res) => {
+    try {
+      res.render("user/login", {messages: null, values: null});
+    } catch (err) {
+      res.status(500).send({ error: err.message });
+    }
+  }
+
 const mainUser = (req, res) => {
     try {
       res.render("user/main", {messages: null, type: null});
@@ -89,7 +97,8 @@ const mainUser = (req, res) => {
   }
 
 module.exports = {
-    pagesRegister,
+    registerPage,
     registerUser,
+    loginPage,
     mainUser
 }
