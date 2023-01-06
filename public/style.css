@@ -46,6 +46,12 @@ section#icon div#iconLogin{
   background-size: contain;
 }
 
+/* Reset Password Icon */
+section#icon div#iconReset{
+  background: url("../images/forgotPassword.svg") no-repeat center center;
+  background-size: contain;
+}
+
 header {
   height: 100vh;
   background-color: #fff;
@@ -137,6 +143,10 @@ div div#divForm form{
   align-items: center;
   gap: 10px;
 
+}
+
+div div#divForm form.resetPassword{
+  height: auto;
 }
 
 /* Message */

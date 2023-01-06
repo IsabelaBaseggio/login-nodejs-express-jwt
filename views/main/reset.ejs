@@ -16,14 +16,14 @@
       <h1><a href="/">Login System</a></h1>
 
       <div>
-        <div id="divForm">
+        <div id="divForm" class="resetPassword">
           <h2>Reset Password</h2>
-          <form action="/reset" method="post">
+          <form action="/reset" method="post" class="resetPassword">
             <% if(messages) { %> <%- include('../components/message', {type:
             type, messages: messages, typeClass: 'form'}) %> <% } %> 
 
-            <% if(values) {%>
             <label for="email">Email</label>
+            <% if(values) {%>
             <input
               type="text"
               name="email"
@@ -32,7 +32,6 @@
             />
 
             <% } else { %>
-            <label for="email">Email</label>
             <input type="text" name="email" id="email" />
             <% } %>
             <button type="submit" id="login">Submit</button>

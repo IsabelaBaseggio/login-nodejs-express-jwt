@@ -24,7 +24,7 @@ const resetPassword = (req, res) => {
     !values.email ||
     typeof values.email == undefined ||
     values.email == null) {
-    messages.push({ text: "This email address is not registered" });
+    messages.push({ text: "Incorrect email address" });
   }
 
   if (messages.length > 0) {
