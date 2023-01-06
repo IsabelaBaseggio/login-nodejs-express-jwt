@@ -16,6 +16,7 @@ const registerPage = (req, res) => {
 };
 
 const registerUser = async (req, res) => {
+  messages = [];
   let values = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
