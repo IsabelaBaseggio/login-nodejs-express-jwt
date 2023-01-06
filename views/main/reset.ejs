@@ -9,7 +9,7 @@
   </head>
   <body>
     <section id="icon">
-      <div id="iconLogin"></div>
+      <div id="iconReset"></div>
     </section>
 
     <header id="headerRegister">
@@ -17,7 +17,7 @@
 
       <div>
         <div id="divForm">
-          <h2>Sign In</h2>
+          <h2>Reset Password</h2>
           <form action="/reset" method="post">
             <% if(messages) { %> <%- include('../components/message', {type:
             type, messages: messages, typeClass: 'form'}) %> <% } %> 
@@ -35,10 +35,7 @@
             <label for="email">Email</label>
             <input type="text" name="email" id="email" />
             <% } %>
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" />
-            <button type="submit" id="login">Sign in</button>
-            <a href="/reset">Forgot password?</a>
+            <button type="submit" id="login">Submit</button>
           </form>
         </div>
 
