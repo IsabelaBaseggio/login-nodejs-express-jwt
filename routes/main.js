@@ -11,7 +11,7 @@ routes.get('/login', MainController.loginPage);
 
 routes.post('/login', MainController.loginUser);
 
-routes.get('/reset', MainController.resetPage);
+routes.get('/reset', MainController.resetPasswordPage);
 
 routes.post('/reset', MainController.resetPassword);
 
