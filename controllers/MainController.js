@@ -1,8 +1,9 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 require("../models/User");
 const User = mongoose.model("Users");
 const bcrypt = require("bcryptjs");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 let messages = [];
 let typeMsg = "";
@@ -262,30 +263,33 @@ const resetPassword = async (req, res) => {
             res.status(500).send({ error: err.message });
           }
         } else {
-
           try {
-            
-            const transport = nodemailer.createTransport({
-              host: "smtp.mailtrap.io",
-              port: 2525,
+            const transporter = nodemailer.createTransport({
+              host: 'localhost',
+              port: process.env.PORT,
               auth: {
-                user: "23ee315154c1d2",
-                pass: "8a672a83a6c95a"
+                  user: process.env.USEREMAIL,
+                  pass: process.env.PASSEMAIL
               }
+          });
+
+          transporter.sendMail({
+              from: "Administrator <nick96@ethereal.email>",
+              to: user.email,
+              subject: "Login System: password reset link",
+              // html: 'Please click on link to reset your password'
+              text: "Nova senha",
             });
 
-            transport.sendMail({
-              from: 'Administrator <a7f36c89e2-4c8ecd@inbox.mailtrap.io>',
-              to: user.email,
-              subject: 'Login System: password reset link',
-              // html: ''
-            })
-
+            try {
+              req.flash("success_msg", { text: "Email send" });
+              res.redirect("/user/");
+            } catch (err) {
+              res.status(500).send({ error: err.message });
+            }
           } catch (err) {
             res.status(500).send({ error: err.message });
           }
-
-          
         }
       });
     } catch (err) {
