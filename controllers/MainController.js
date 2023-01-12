@@ -265,28 +265,30 @@ const resetPassword = async (req, res) => {
         } else {
           try {
             const transporter = nodemailer.createTransport({
-              host: 'localhost',
-              port: process.env.PORT,
+              host: process.env.HOSTEMAIL,
+              service: "gmail",
+              port: process.env.PORTEMAIL,
+              secure: true,
               auth: {
-                  user: process.env.USEREMAIL,
-                  pass: process.env.PASSEMAIL
-              }
-          });
-
-          transporter.sendMail({
-              from: "Administrator <nick96@ethereal.email>",
-              to: user.email,
-              subject: "Login System: password reset link",
-              // html: 'Please click on link to reset your password'
-              text: "Nova senha",
+                user: process.env.USEREMAIL,
+                pass: process.env.PASSEMAIL,
+              },
             });
 
-            try {
-              req.flash("success_msg", { text: "Email send" });
-              res.redirect("/user/");
-            } catch (err) {
-              res.status(500).send({ error: err.message });
-            }
+            transporter
+              .sendMail({
+                from: `Administrator Login System <${process.env.HOSTEMAIL}>`,
+                to: user.email,
+                subject: "Login System: password reset link",
+                html: '<h1>Login System</h1> <p>Please click on link to reset your password: <a href="">Reset Link</a></p>',
+              })
+              .then(() => {
+                req.flash("success_msg", { text: "Email send" });
+                res.redirect("/user/");
+              })
+              .catch((err) => {
+                res.status(500).send({ error: err.message });
+              });
           } catch (err) {
             res.status(500).send({ error: err.message });
           }
