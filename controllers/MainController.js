@@ -4,6 +4,7 @@ require("../models/User");
 const User = mongoose.model("Users");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
+const jwt = require("jsonwebtoken");
 
 let messages = [];
 let typeMsg = "";
@@ -26,7 +27,7 @@ const registerPage = (req, res) => {
 
 const registerUser = async (req, res) => {
   messages = [];
-  let values = await {
+  let values = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
@@ -133,9 +134,9 @@ const loginPage = (req, res) => {
   }
 };
 
-const loginUser = async (req, res) => {
+const loginUser = (req, res) => {
   messages = [];
-  let values = await {
+  let values = {
     email: req.body.email,
   };
 
@@ -221,9 +222,9 @@ const resetPasswordPage = (req, res) => {
   }
 };
 
-const resetPassword = async (req, res) => {
+const resetPassword = (req, res) => {
   messages = [];
-  let values = await {
+  let values = {
     email: req.body.email,
   };
 
@@ -263,35 +264,37 @@ const resetPassword = async (req, res) => {
             res.status(500).send({ error: err.message });
           }
         } else {
-          try {
-            const transporter = nodemailer.createTransport({
-              host: process.env.HOSTEMAIL,
-              service: "gmail",
-              port: process.env.PORTEMAIL,
-              secure: true,
-              auth: {
-                user: process.env.USEREMAIL,
-                pass: process.env.PASSEMAIL,
-              },
-            });
+          let tokenLink = jwt.sign(
+            { id: user._id, email: user.email },
+            process.env.SECRET,
+            3000
+          );
 
-            transporter
-              .sendMail({
-                from: `Administrator Login System <${process.env.HOSTEMAIL}>`,
-                to: user.email,
-                subject: "Login System: password reset link",
-                html: '<h1>Login System</h1> <p>Please click on link to reset your password: <a href="">Reset Link</a></p>',
-              })
-              .then(() => {
-                req.flash("success_msg", { text: "Email send" });
-                res.redirect("/user/");
-              })
-              .catch((err) => {
-                res.status(500).send({ error: err.message });
-              });
-          } catch (err) {
-            res.status(500).send({ error: err.message });
-          }
+          const transporter = nodemailer.createTransport({
+            host: process.env.HOSTEMAIL,
+            service: "gmail",
+            port: process.env.PORTEMAIL,
+            secure: true,
+            auth: {
+              user: process.env.USEREMAIL,
+              pass: process.env.PASSEMAIL,
+            },
+          });
+
+          transporter
+            .sendMail({
+              from: `Support Login System <${process.env.HOSTEMAIL}>`,
+              to: user.email,
+              subject: "Login System: password reset link",
+              html: "<h1 style='font-family: Arial, Helvetica, sans-serif; font-weight: 300;'>Login System</h1><p>Please click on link to reset your password: <a href=`/user/${user.firstName}+${user.lastName}/${tokenLink}`>Reset Link</a></p>",
+            })
+            .then(() => {
+              req.flash("success_msg", { text: "Email send" });
+              res.redirect("/user/");
+            })
+            .catch((err) => {
+              res.status(500).send({ error: err.message });
+            });
         }
       });
     } catch (err) {
