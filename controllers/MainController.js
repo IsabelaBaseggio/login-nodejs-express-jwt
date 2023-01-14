@@ -306,8 +306,11 @@ const resetPassword = (req, res) => {
 };
 
 const resetLinkPage = (req, res) => {
+
+  const tokenTempo = req.params.token.expiresIn;
+
   try {
-    res.render("main/reset-password", { messages: null, values: null });
+    res.render("main/reset-password-link", { messages: null, values: null, tokenTempo});
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
