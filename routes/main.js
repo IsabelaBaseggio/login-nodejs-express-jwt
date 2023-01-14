@@ -15,4 +15,6 @@ routes.get('/reset', MainController.resetPasswordPage);
 
 routes.post('/reset', MainController.resetPassword);
 
+routes.get('/reset/:id/:token', MainController.resetLinkPage);
+
 module.exports = routes;

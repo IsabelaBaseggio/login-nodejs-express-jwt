@@ -239,7 +239,7 @@ const resetPassword = (req, res) => {
   if (messages.length > 0) {
     try {
       typeMsg = "danger";
-      res.render("main/reset", {
+      res.render("main/reset-password", {
         messages: messages,
         type: typeMsg,
         values: values,
@@ -255,7 +255,7 @@ const resetPassword = (req, res) => {
           try {
             messages.push({ text: "Incorrect email address" });
             typeMsg = "danger";
-            res.render("main/reset", {
+            res.render("main/reset-password", {
               messages: messages,
               type: typeMsg,
               values: values,
@@ -264,11 +264,13 @@ const resetPassword = (req, res) => {
             res.status(500).send({ error: err.message });
           }
         } else {
+          let linksSecret = process.env.SECRET + user.password;
           let tokenLink = jwt.sign(
             { id: user._id, email: user.email },
-            process.env.SECRET,
-            3000
+            linksSecret,
+            { expiresIn: "5m" }
           );
+          let link = `http://localhost:3000/reset/${user._id}/${tokenLink}`;
 
           const transporter = nodemailer.createTransport({
             host: process.env.HOSTEMAIL,
@@ -286,7 +288,7 @@ const resetPassword = (req, res) => {
               from: `Support Login System <${process.env.HOSTEMAIL}>`,
               to: user.email,
               subject: "Login System: password reset link",
-              html: "<h1 style='font-family: Arial, Helvetica, sans-serif; font-weight: 300;'>Login System</h1><p>Please click on link to reset your password: <a href=`/user/${user.firstName}+${user.lastName}/${tokenLink}`>Reset Link</a></p>",
+              html: `<h1 style="font-family: Arial, Helvetica, sans-serif; font-weight: 300;">Login System</h1><p>Please click on link to reset your password: <a href="${link}">${link}</a></p>`,
             })
             .then(() => {
               req.flash("success_msg", { text: "Email send" });
@@ -303,6 +305,14 @@ const resetPassword = (req, res) => {
   }
 };
 
+const resetLinkPage = (req, res) => {
+  try {
+    res.render("main/reset-password", { messages: null, values: null });
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+}
+
 module.exports = {
   mainIndex,
   registerPage,
@@ -311,4 +321,5 @@ module.exports = {
   loginUser,
   resetPasswordPage,
   resetPassword,
+  resetLinkPage
 };
