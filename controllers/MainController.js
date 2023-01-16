@@ -268,7 +268,7 @@ const resetPassword = (req, res) => {
           let tokenLink = jwt.sign(
             { id: user._id, email: user.email },
             linksSecret,
-            { expiresIn: "5m" }
+            { expiresIn: 300 }
           );
           let link = `http://localhost:3000/reset/${user._id}/${tokenLink}`;
 
@@ -306,15 +306,50 @@ const resetPassword = (req, res) => {
 };
 
 const resetLinkPage = (req, res) => {
-
-  const tokenTempo = req.params.token.expiresIn;
+  // const tokenTempo = req.params.token.keys();
+  const tokenTempo = req.params.token.exp;
 
   try {
-    res.render("main/reset-password-link", { messages: null, values: null, tokenTempo});
+    User.findOne({ id: req.params.id }).then((user) => {
+      if (!user) {
+        try {
+          messages.push({ text: "User not found" });
+          typeMsg = "danger";
+          res.render("main/reset-password", {
+            messages: messages,
+            type: typeMsg,
+            values: values,
+          });
+        } catch (err) {
+          res.status(500).send({ error: err.message });
+        }
+      } else {
+        try {
+          const verify = jwt.verify(
+            req.params.token,
+            process.env.SECRET + user.password
+          );
+          try {
+            console.log(tokenTempo.expiredAt);
+            res.render("main/reset-password-link", {
+              messages: null,
+              values: null,
+              tokenTempo,
+            });
+          } catch (err) {
+            res.status(500).send({ error: err.message });
+          }
+        } catch (err) {
+          req.flash("error_msg", { text: "Expired link" });
+          // res.status(401).send({ error: err.message });
+          res.redirect("/reset");
+        }
+      }
+    });
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
-}
+};
 
 module.exports = {
   mainIndex,
@@ -324,5 +359,5 @@ module.exports = {
   loginUser,
   resetPasswordPage,
   resetPassword,
-  resetLinkPage
+  resetLinkPage,
 };
