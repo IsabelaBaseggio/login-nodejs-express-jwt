@@ -306,9 +306,6 @@ const resetPassword = (req, res) => {
 };
 
 const resetLinkPage = (req, res) => {
-  // const tokenTempo = req.params.token.keys();
-  const tokenTempo = req.params.token.exp;
-
   try {
     User.findOne({ id: req.params.id }).then((user) => {
       if (!user) {
@@ -325,12 +322,11 @@ const resetLinkPage = (req, res) => {
         }
       } else {
         try {
-          const verify = jwt.verify(
+          jwt.verify(
             req.params.token,
             process.env.SECRET + user.password
           );
           try {
-            console.log(tokenTempo.expiredAt);
             res.render("main/reset-password-link", {
               messages: null,
               values: null,
@@ -341,7 +337,6 @@ const resetLinkPage = (req, res) => {
           }
         } catch (err) {
           req.flash("error_msg", { text: "Expired link" });
-          // res.status(401).send({ error: err.message });
           res.redirect("/reset");
         }
       }
