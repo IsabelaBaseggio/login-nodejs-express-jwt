@@ -322,22 +322,23 @@ const resetLinkPage = (req, res) => {
         }
       } else {
         try {
-          jwt.verify(
-            req.params.token,
-            process.env.SECRET + user.password
-          );
-          try {
-            res.render("main/reset-password-link", {
-              messages: null,
-              values: null,
-              tokenTempo,
-            });
-          } catch (err) {
-            res.status(500).send({ error: err.message });
+          // Checking token validity
+          if (
+            jwt.verify(req.params.token, process.env.SECRET + user.password)
+          ) {
+            try {
+              res.render("main/reset-password-link", {
+                messages: null,
+                values: null,
+              });
+            } catch (err) {
+              res.status(500).send({ error: err.message });
+            }
           }
         } catch (err) {
           req.flash("error_msg", { text: "Expired link" });
           res.redirect("/reset");
+
         }
       }
     });
