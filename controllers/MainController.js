@@ -323,22 +323,16 @@ const resetLinkPage = (req, res) => {
       } else {
         try {
           // Checking token validity
-          if (
-            jwt.verify(req.params.token, process.env.SECRET + user.password)
-          ) {
-            try {
-              res.render("main/reset-password-link", {
-                messages: null,
-                values: null,
-              });
-            } catch (err) {
-              res.status(500).send({ error: err.message });
-            }
-          }
-        } catch (err) {
-          req.flash("error_msg", { text: "Expired link" });
-          res.redirect("/reset");
+          const tokenVerify = jwt.verify(req.params.token, process.env.SECRET + user.password);
 
+          console.log(tokenVerify)
+          res.render("main/reset-password-link", {
+            messages: null,
+            values: null,
+          });
+        } catch (err) {
+          req.flash("error_msg", { text: "Expired link. Please enter your email again to receive a new link." });
+          res.redirect("/reset");
         }
       }
     });

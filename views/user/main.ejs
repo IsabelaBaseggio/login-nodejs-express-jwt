@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <% if(success_msg) { %> <%- include('../components/message', {type:
+    <% if(success_msg.length > 0) { %> <%- include('../components/message', {type:
         'success', messages: success_msg, typeClass: 'alert'}) %> <% } %> 
     Main User
 
