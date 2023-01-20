@@ -72,7 +72,7 @@ const registerUser = async (req, res) => {
     messages.push({ text: "Invalid Password" });
   }
 
-  if (req.body.password.length <= 7 && req.body.password.length > 0) {
+  if (req.body.password.length <= 7) {
     messages.push({ text: "Password Too Short" });
   }
 
@@ -222,7 +222,7 @@ const resetPasswordPage = (req, res) => {
   }
 };
 
-const resetPassword = (req, res) => {
+const createLinkResetPassword = (req, res) => {
   messages = [];
   let values = {
     email: req.body.email,
@@ -291,8 +291,15 @@ const resetPassword = (req, res) => {
               html: `<h1 style="font-family: Arial, Helvetica, sans-serif; font-weight: 300;">Login System</h1><p>Please click on link to reset your password: <a href="${link}">${link}</a></p>`,
             })
             .then(() => {
-              req.flash("success_msg", { text: "Email send" });
-              res.redirect("/user/");
+              messages.push({
+                text: "Link sent. Please check your email, the link will expire in 5 minutes.",
+              });
+              typeMsg = "success";
+              res.render("main/reset-password", {
+                messages: messages,
+                type: typeMsg,
+                values: null,
+              });
             })
             .catch((err) => {
               res.status(500).send({ error: err.message });
@@ -325,19 +332,62 @@ const resetLinkPage = (req, res) => {
           // Checking token validity
           const tokenVerify = jwt.verify(req.params.token, process.env.SECRET + user.password);
 
-          console.log(tokenVerify)
+          console.log(req.params.id)
+          console.log(req.params.token)
+
           res.render("main/reset-password-link", {
+            id: req.params.id,
+            token: req.params.token,
             messages: null,
             values: null,
           });
         } catch (err) {
-          req.flash("error_msg", { text: "Expired link. Please enter your email again to receive a new link." });
+          req.flash("error_msg", {
+            text: "Expired link. Please enter your email again to receive a new link.",
+          });
           res.redirect("/reset");
         }
       }
     });
   } catch (err) {
     res.status(500).send({ error: err.message });
+  }
+};
+
+const resetingPassword = (req, res) => {
+  messages = [];
+
+  // pegar id e token para quando for renderizar no caso de erro o formulário ter acesso ao id e token para enviar para a rota /reset/<%= id %>/<%= token %>
+
+  if (
+    !req.body.password ||
+    typeof req.body.password == undefined ||
+    req.body.password == null ||
+    !req.body.password2 ||
+    typeof req.body.password2 == undefined ||
+    req.body.password2 == null
+  ) {
+    messages.push({ text: "Please enter a new password and confirm it" });
+  }
+
+  if (req.body.password.length <= 7) {
+    messages.push({ text: "Password Too Short" });
+  }
+
+  if (req.body.password !== req.body.password2) {
+    messages.push({ text: "Passwords do not match" });
+  }
+
+  if (messages.length > 0) {
+    try {
+      typeMsg = "danger";
+      res.render("main/reset-password-link", {
+        messages: messages,
+        type: typeMsg,
+      });
+    } catch (err) {
+      res.status(500).send({ error: err.message });
+    }
   }
 };
 
@@ -348,6 +398,7 @@ module.exports = {
   loginPage,
   loginUser,
   resetPasswordPage,
-  resetPassword,
+  createLinkResetPassword,
   resetLinkPage,
+  resetingPassword
 };

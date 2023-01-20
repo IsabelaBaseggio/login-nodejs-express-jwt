@@ -13,8 +13,10 @@ routes.post('/login', MainController.loginUser);
 
 routes.get('/reset', MainController.resetPasswordPage);
 
-routes.post('/reset', MainController.resetPassword);
+routes.post('/reset', MainController.createLinkResetPassword);
 
 routes.get('/reset/:id/:token', MainController.resetLinkPage);
+
+routes.post('/reset/:id/:token', MainController.resetingPassword);
 
 module.exports = routes;
