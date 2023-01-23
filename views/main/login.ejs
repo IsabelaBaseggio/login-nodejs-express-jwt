@@ -22,6 +22,9 @@
             <% if(messages) { %> <%- include('../components/message', {type:
             type, messages: messages, typeClass: 'form'}) %> <% } %> 
 
+            <% if(success_msg.length > 0) { %> <%- include('../components/message', {type:
+              'success', messages: success_msg, typeClass: 'form'}) %> <% } %>
+
             <% if(values) {%>
             <label for="email">Email</label>
             <input

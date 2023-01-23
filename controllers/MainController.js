@@ -5,6 +5,7 @@ const User = mongoose.model("Users");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
+const values = require("@hapi/joi/lib/values");
 
 let messages = [];
 let typeMsg = "";
@@ -112,7 +113,7 @@ const registerUser = async (req, res) => {
             });
 
             newUser.save().then(() => {
-              req.flash("success_msg", { text: "User Successfully Created" });
+              req.flash("success_msg", { text: "User successfully created" });
               res.redirect("/user/");
             });
           } catch (err) {
@@ -330,10 +331,10 @@ const resetLinkPage = (req, res) => {
       } else {
         try {
           // Checking token validity
-          const tokenVerify = jwt.verify(req.params.token, process.env.SECRET + user.password);
-
-          console.log(req.params.id)
-          console.log(req.params.token)
+          const tokenVerify = jwt.verify(
+            req.params.token,
+            process.env.SECRET + user.password
+          );
 
           res.render("main/reset-password-link", {
             id: req.params.id,
@@ -357,37 +358,86 @@ const resetLinkPage = (req, res) => {
 const resetingPassword = (req, res) => {
   messages = [];
 
-  // pegar id e token para quando for renderizar no caso de erro o formulário ter acesso ao id e token para enviar para a rota /reset/<%= id %>/<%= token %>
+  try {
+    User.findById(req.params.id).then((user) => {
+      if (!user) {
+        try {
+          messages.push({ text: "User not found" });
+          typeMsg = "danger";
+          res.render("main/reset-password", {
+            messages: messages,
+            type: typeMsg,
+            values: null,
+          });
+        } catch (err) {
+          res.status(500).send({ error: err.message });
+        }
+      } else {
+        try {
+          // Checking token validity
+          const tokenVerify = jwt.verify(
+            req.params.token,
+            process.env.SECRET + user.password
+          );
 
-  if (
-    !req.body.password ||
-    typeof req.body.password == undefined ||
-    req.body.password == null ||
-    !req.body.password2 ||
-    typeof req.body.password2 == undefined ||
-    req.body.password2 == null
-  ) {
-    messages.push({ text: "Please enter a new password and confirm it" });
-  }
+          if (
+            !req.body.password ||
+            typeof req.body.password == undefined ||
+            req.body.password == null ||
+            !req.body.password2 ||
+            typeof req.body.password2 == undefined ||
+            req.body.password2 == null
+          ) {
+            messages.push({
+              text: "Please enter a new password and confirm it",
+            });
+          }
 
-  if (req.body.password.length <= 7) {
-    messages.push({ text: "Password Too Short" });
-  }
+          // Validating passwords
 
-  if (req.body.password !== req.body.password2) {
-    messages.push({ text: "Passwords do not match" });
-  }
+          if (req.body.password.length <= 7) {
+            messages.push({ text: "Password Too Short" });
+          }
 
-  if (messages.length > 0) {
-    try {
-      typeMsg = "danger";
-      res.render("main/reset-password-link", {
-        messages: messages,
-        type: typeMsg,
-      });
-    } catch (err) {
-      res.status(500).send({ error: err.message });
-    }
+          if (req.body.password !== req.body.password2) {
+            messages.push({ text: "Passwords do not match" });
+          }
+
+          if (messages.length > 0) {
+            try {
+              typeMsg = "danger";
+              res.render("main/reset-password-link", {
+                id: req.params.id,
+                token: req.params.token,
+                messages: messages,
+                type: typeMsg,
+              });
+            } catch (err) {
+              res.status(500).send({ error: err.message });
+            }
+          } else {
+
+            // Encrypting password
+            user.password = bcrypt.hashSync(req.body.password)
+            
+            // Saving in DB
+            user.save().then(() => {
+              req.flash("success_msg", {
+                text: "Password successfully updated",
+              });
+              res.redirect("/login");
+            });
+          }
+        } catch (err) {
+          req.flash("error_msg", {
+            text: "Expired link. Please enter your email again to receive a new link.",
+          });
+          res.redirect("/reset");
+        }
+      }
+    });
+  } catch (err) {
+    res.status(500).send({ error: err.message });
   }
 };
 
@@ -400,5 +450,5 @@ module.exports = {
   resetPasswordPage,
   createLinkResetPassword,
   resetLinkPage,
-  resetingPassword
+  resetingPassword,
 };
