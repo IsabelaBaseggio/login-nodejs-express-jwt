@@ -1,30 +1,12 @@
-// function tokenTimer(duration, display) {
+const messageAlert = document.querySelector(".message-alert");
+const closeMessage = document.querySelector("#close-message");
 
-//     var timer = duration, minutes, seconds;
+if (closeMessage) {
+  closeMessage.addEventListener("click", () => {
+    messageAlert.style.display = "none";
+  });
 
-//     setInterval(() => {
-       
-//         minutes = parseInt(timer / 60, 10);
-//         seconds = parent(timer % 60 / 10);
-
-//         minutes = "0" + minutes;
-//         seconds = seconds < 10 ? "0" + seconds : seconds;
-
-//         display.textContent = minutes + ":" + seconds;
-
-//         if(--timer < 0) {
-//             timer = duration;
-//         }
-        
-//     }, 1000);
-
-// }
-
-// window.onload = funcion() {
-
-//     var duration = document.getElementById('timer').dataset.tokenTempo * 60;
-//     var display = document.querySelector("#timer");
-
-//     tokenTimer(duration, display);
-
-// }
+  setTimeout(() => {
+    messageAlert.style.display = "none";
+  }, 5000);
+}
