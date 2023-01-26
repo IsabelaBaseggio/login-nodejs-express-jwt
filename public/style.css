@@ -149,6 +149,18 @@ div div#divForm form.resetPassword{
   height: auto;
 }
 
+/* Header User */
+
+header#headerUser{
+  margin: auto;
+  width: 90%;
+  height: 90%;
+
+  background-color: antiquewhite;
+  border-radius: 10px;
+
+}
+
 /* Message */
 section.message{
   width: 90%;
