@@ -52,6 +52,12 @@ section#icon div#iconReset{
   background-size: contain;
 }
 
+/* User Icon */
+section#icon div#iconUser{
+  background: url("../images/userPage.svg") no-repeat center center;
+  background-size: contain;
+}
+
 header {
   height: 100vh;
   background-color: #fff;
