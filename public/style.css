@@ -162,9 +162,30 @@ header#headerUser{
   width: 90%;
   height: 90%;
 
-  background-color: antiquewhite;
-  border-radius: 10px;
+  border-radius: 20px;
+}
 
+header#headerUser div#dashboardUser{
+  width: 100%;
+  height: 100%;
+
+  border: 1px solid #adb5bd;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+div#dashboardUser ul{
+  list-style: none;
+
+  width: 100%;
+  height: 100%;
+}
+
+div#dashboardUser div{
+  width: 100%;
+  height: 100%;
 }
 
 /* Message */
