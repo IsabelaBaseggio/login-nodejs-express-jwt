@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-    href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet"
-  />
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/style.css" />
     <title>Document</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <header id="headerUser">
-
-        <div id="dashboardUser">
-
+      <div id="dashboardUser">
+        <ul id="navbar">
+          <li id="userName">User Name</li>
+          <li>
             <ul>
-                <li>User Name(maybe icon)</li>
-                <li>Logout</li>
+              <li><a href="">Settings</a></li>
+              <li><a href="" id="logout">Logout</a></li>
             </ul>
+          </li>
+        </ul>
 
-            <div>User Settings
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel provident molestiae necessitatibus voluptates officiis doloremque tempora, unde enim. Accusantium nulla minima reprehenderit architecto, cupiditate earum consequuntur. Porro quod officia similique.
-            </div>
-            
-
+        <div>
+          <p>
+            "Through space the universe encompasses and swallows me up like an
+            atom; through thought I comprehend the world."
+            <span>Blaise Pascal</span>
+          </p>
         </div>
-
+      </div>
     </header>
 
     <section id="icon">
-        <div id="iconUser">
-        </div>
+      <div id="iconUser"></div>
     </section>
 
-    <% if(success_msg.length > 0) { %> <%- include('../components/message', {type:
-        'success', messages: success_msg, typeClass: 'alert'}) %> <% } %> 
-        
+    <% if(success_msg.length > 0) { %> <%- include('../components/message',
+    {type: 'success', messages: success_msg, typeClass: 'alert'}) %> <% } %>
 
     <script src="/script.js"></script>
-</body>
+  </body>
 </html>
