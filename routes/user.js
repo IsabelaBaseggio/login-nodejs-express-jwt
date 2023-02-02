@@ -4,4 +4,6 @@ const UserController = require("../controllers/UserController");
 
 routes.get("/", UserController.mainUser);
 
+routes.get("/settings", UserController.settingsPage);
+
 module.exports = routes;

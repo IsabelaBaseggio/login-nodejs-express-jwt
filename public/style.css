@@ -219,15 +219,22 @@ div#dashboardUser ul#navbar ul li a#logout{
 }
 
 div#dashboardUser div{
+  border-radius: 0 0 20px 20px;
+
   padding: 20px;
 
  display: grid;
  place-items: center;
 }
 
+div#dashboardUser div#userHome{
+  background-color: #3F3D56;
+}
+
 div#dashboardUser div p{
   width: 40%;
 
+  color: #fff;
   text-align: center;
 }
 
