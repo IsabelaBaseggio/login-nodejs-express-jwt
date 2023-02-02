@@ -152,7 +152,7 @@ div div#divForm form.resetPassword{
   height: auto;
 }
 
-/* Header User */
+/* Header User Main */
 
 header#headerUser{
   margin: auto;
@@ -185,6 +185,7 @@ div#dashboardUser ul#navbar{
 
   display: grid;
   grid-template-columns: 70% auto;
+  justify-content: space-between;
   align-content: center;
 }
 
@@ -204,7 +205,9 @@ div#dashboardUser ul#navbar ul{
 
   display: grid;
   grid-template-columns: 50% 50%;
-  place-items: center;
+  justify-content: space-between;
+  align-content: center;
+  gap: 20px;
 }
 
 div#dashboardUser ul#navbar ul li a{
@@ -243,6 +246,23 @@ div#dashboardUser div p span{
   display: block;
 
   color: #cc8545;
+}
+
+/* Header User Settings */
+
+div#dashboardUser ul#navbar{
+
+  align-items: center;
+
+}
+
+div#dashboardUser ul#navbar li#userName a{
+  color: #000;
+  text-decoration-color: #cc8545;
+}
+
+div#dashboardUser ul#navbar a#logout{
+  color: #ff6584;
 }
 
 /* Message */

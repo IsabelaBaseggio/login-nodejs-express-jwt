@@ -14,20 +14,45 @@
   <body>
     <header id="headerUser">
       <div id="dashboardUser">
-        <ul id="navbar">
-          <li id="userName">User Name</li>
-          <li>
-            <ul>
-              <li><a href="" id="logout">Logout</a></li>
-            </ul>
-          </li>
+        <ul id="navbar" class="navbarSettings">
+          <li id="userName"><a href="/user/">User Name</a></li>
+          <li><a href="" id="logout">Logout</a></li>
         </ul>
 
+
         <div>
-          <p>
-            Settings
-          </p>
+            <form action="" method="post">
+                <label for="firstName">First Name</label>
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+            />
+            <label for="laststName">Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+            />
+            <label for="email">Email</label>
+            <input
+              type="text"
+              name="email"
+              id="email"
+            />
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" />
+            <button type="submit">Save</button>
+            </form>
+
+            <div>
+                <form action="" method="delete">
+                    <input type="submit" value="colocarOidDoUserAqui">
+                    <button type="submit">Delete account</button>
+                </form>
+            </div>
         </div>
+
       </div>
     </header>
 
