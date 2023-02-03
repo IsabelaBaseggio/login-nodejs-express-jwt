@@ -298,6 +298,46 @@ div#dashboardUser div#settings div#update form input{
   border: 1px solid #adb5bd;
 }
 
+div#update form button{
+  background-color: green;
+}
+
+div#update form button:hover{
+  background-color: rgb(40, 170, 40);
+}
+
+div#dashboardUser div#settings div#delete{
+  width: 100%;
+  height: 100%;
+  padding: 0;
+
+  grid-template-rows: 15% 85%;
+}
+
+div#dashboardUser div#settings div#delete p{
+  color: #000;
+  width: auto;
+  font-size: 1.5em;
+  font-weight: 200;
+}
+
+div#dashboardUser div#settings div#delete form{
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  place-items: center;
+  gap: 10px;
+
+}
+
+div#delete form button{
+  background-color: red;
+}
+
+div#delete form button:hover{
+  background-color: rgb(194, 68, 68);
+}
 
 /* Message */
 section.message{
