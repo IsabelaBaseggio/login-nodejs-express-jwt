@@ -113,8 +113,10 @@ const registerUser = async (req, res) => {
             });
 
             newUser.save().then(() => {
+              req.user = {...values, password: req.body.password}
+              userName = user.firstName + user.lastName;
               req.flash("success_msg", { text: "User successfully created" });
-              res.redirect("/user/");
+              res.redirect(`/user/${userName}`);
             });
           } catch (err) {
             res.status(500).send({ error: err.message });
@@ -198,8 +200,10 @@ const loginUser = (req, res) => {
             } else {
               // Logging in user
               try {
+                req.user = {...values, password: req.body.password}
+                userName = user.firstName + user.lastName;
                 req.flash("success_msg", { text: "User Logged" });
-                res.redirect("/user/");
+                res.redirect(`/user/${userName}`);
               } catch (err) {
                 res.status(500).send({ error: err.message });
               }

@@ -8,7 +8,7 @@ let typeMsg = "";
 
 const mainUser = (req, res) => {
   try {
-    res.render("user/main", { messages: null, type: null });
+    res.render("user/main", { messages: null, type: null, user: req.user});
   } catch (err) {
     res.status(500).send({ error: err.message });
   }

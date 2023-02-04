@@ -31,6 +31,7 @@ app.use(flash());
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
+  res.locals.user = req.user || null;
   next();
 })
 
@@ -44,8 +45,8 @@ connectDB();
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
-app.use("/", mainRoute);
-app.use("/user", userRoute);
+app.use("/", express.json(), mainRoute);
+app.use("/user", express.json(), userRoute);
 
 // Server
 app.listen(port, () => {
