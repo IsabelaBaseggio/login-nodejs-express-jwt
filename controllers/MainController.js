@@ -200,10 +200,8 @@ const loginUser = (req, res) => {
             } else {
               // Logging in user
               try {
-                req.user = {...values, password: req.body.password}
-                userName = user.firstName + user.lastName;
                 req.flash("success_msg", { text: "User Logged" });
-                res.redirect(`/user/${userName}`);
+                res.redirect(`/user/${user.firstName}-${user.lastName}`);
               } catch (err) {
                 res.status(500).send({ error: err.message });
               }
