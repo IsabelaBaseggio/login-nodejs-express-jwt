@@ -114,7 +114,7 @@ const registerUser = async (req, res) => {
 
             newUser.save().then(() => {
               req.user = {...values, password: req.body.password}
-              userName = user.firstName + user.lastName;
+              let userName = user.firstName + user.lastName;
               req.flash("success_msg", { text: "User successfully created" });
               res.redirect(`/user/${userName}`);
             });
@@ -200,6 +200,7 @@ const loginUser = (req, res) => {
             } else {
               // Logging in user
               try {
+                req.user = {user};
                 req.flash("success_msg", { text: "User Logged" });
                 res.redirect(`/user/${user.firstName}-${user.lastName}`);
               } catch (err) {
@@ -273,6 +274,19 @@ const createLinkResetPassword = (req, res) => {
             linksSecret,
             { expiresIn: 300 }
           );
+          console.log(jwt.decode(tokenLink)) /* {
+            id: '63e2b710796285ad1d97fcfd',
+            email: 'nome@alura.com.br',
+            iat: 1675802571,
+            exp: 1675802871
+          } */
+          /* 
+          console.log(jwt.decode(tokenLink).id) -> 63e2b710796285ad1d97fcfd
+          console.log(jwt.decode(tokenLink).email) -> nome@alura.com.br
+          console.log(jwt.decode(tokenLink).iat) -> 1675802571
+          console.log(jwt.decode(tokenLink).exp) -> 1675802571
+          */
+         // criar um token quando logar e registar e passar as informações do usuario para na verificação do token retornar o user junto e enviar pro front com o render, como uma variavel global
           let link = `http://localhost:3000/reset/${user._id}/${tokenLink}`;
 
           const transporter = nodemailer.createTransport({
