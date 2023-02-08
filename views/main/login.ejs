@@ -25,6 +25,9 @@
             <% if(success_msg.length > 0) { %> <%- include('../components/message', {type:
               'success', messages: success_msg, typeClass: 'form'}) %> <% } %>
 
+              <% if(error_msg.length > 0) { %> <%- include('../components/message', {type:
+                'danger', messages: error_msg, typeClass: 'alert'}) %> <% } %>
+              
             <% if(values) {%>
             <label for="email">Email</label>
             <input

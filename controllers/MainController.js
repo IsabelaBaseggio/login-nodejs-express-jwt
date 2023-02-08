@@ -113,9 +113,22 @@ const registerUser = async (req, res) => {
             });
 
             newUser.save().then(() => {
-              req.user = {...values, password: req.body.password}
+              let token = jwt.sign(
+                {
+                  user: {
+                    id: user._id,
+                    email: user.email,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    password: req.body.password,
+                  },
+                },
+                process.env.SECRET,
+                { expiresIn: 10800 }
+              );
               let userName = user.firstName + user.lastName;
               req.flash("success_msg", { text: "User successfully created" });
+              res.header("authorization-token", token);
               res.redirect(`/user/${userName}`);
             });
           } catch (err) {
@@ -200,9 +213,24 @@ const loginUser = (req, res) => {
             } else {
               // Logging in user
               try {
-                req.user = {user};
+                let token = jwt.sign(
+                  {
+                    user: {
+                      id: user._id,
+                      email: user.email,
+                      firstName: user.firstName,
+                      lastName: user.lastName,
+                      password: req.body.password,
+                    },
+                  },
+                  process.env.SECRET,
+                  { expiresIn: 10800 }
+                );
+                let userName = user.firstName + user.lastName;
+                // redirect não permite utilizar header(), então deve enviar o token por cookie
+                res.header("authorization-token", token);
                 req.flash("success_msg", { text: "User Logged" });
-                res.redirect(`/user/${user.firstName}-${user.lastName}`);
+                res.redirect(`/user/${userName}`);
               } catch (err) {
                 res.status(500).send({ error: err.message });
               }
@@ -274,7 +302,7 @@ const createLinkResetPassword = (req, res) => {
             linksSecret,
             { expiresIn: 300 }
           );
-          console.log(jwt.decode(tokenLink)) /* {
+          console.log(jwt.decode(tokenLink)); /* {
             id: '63e2b710796285ad1d97fcfd',
             email: 'nome@alura.com.br',
             iat: 1675802571,
@@ -286,7 +314,7 @@ const createLinkResetPassword = (req, res) => {
           console.log(jwt.decode(tokenLink).iat) -> 1675802571
           console.log(jwt.decode(tokenLink).exp) -> 1675802571
           */
-         // criar um token quando logar e registar e passar as informações do usuario para na verificação do token retornar o user junto e enviar pro front com o render, como uma variavel global
+          // criar um token quando logar e registar e passar as informações do usuario para na verificação do token retornar o user junto e enviar pro front com o render, como uma variavel global
           let link = `http://localhost:3000/reset/${user._id}/${tokenLink}`;
 
           const transporter = nodemailer.createTransport({
@@ -432,10 +460,9 @@ const resetingPassword = (req, res) => {
               res.status(500).send({ error: err.message });
             }
           } else {
-
             // Encrypting password
-            user.password = bcrypt.hashSync(req.body.password)
-            
+            user.password = bcrypt.hashSync(req.body.password);
+
             // Saving in DB
             user.save().then(() => {
               req.flash("success_msg", {
