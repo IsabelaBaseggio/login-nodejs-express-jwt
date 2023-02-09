@@ -376,7 +376,6 @@ section.message-alert{
 
   border-radius: 5px;
   text-align: justify;
-  background-color: palegreen;
 }
 
 section.message-alert span{
@@ -384,6 +383,14 @@ section.message-alert span{
   justify-content: right;
 
   transition: 0.3s;
+}
+
+section.message-alert.message-success{
+  background-color: #98fb98;
+}
+
+section.message-alert.message-danger{
+  background-color: #ffb6c1;
 }
 
 section.message-alert span i{
