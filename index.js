@@ -4,6 +4,7 @@ const path = require("path");
 const mainRoute = require("./routes/main");
 const userRoute = require("./routes/user");
 const session = require('express-session');
+const cors = require('cors');
 const flash = require('connect-flash');
 const connectDB = require("./database/db");
 // install passport
@@ -20,12 +21,18 @@ const port = process.env.PORT;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Session & Flash
+// Session, Cookies & Flash
 app.use(session({
   secret: process.env.SECRET,
   resave: true,
   saveUninitialized: true
 }));
+app.use(
+  cors({
+    origin: 'localhost:3000',
+    credentials: true,
+  })
+)
 app.use(flash());
 
 // Middleware - Flash

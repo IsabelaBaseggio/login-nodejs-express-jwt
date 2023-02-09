@@ -228,7 +228,7 @@ const loginUser = (req, res) => {
                 );
                 let userName = user.firstName + user.lastName;
                 // redirect não permite utilizar header(), então deve enviar o token por cookie
-                res.header("authorization-token", token);
+                res.cookie("authorization_token", token, {maxAge: 10800000, httpOnly: true, secure: false});
                 req.flash("success_msg", { text: "User Logged" });
                 res.redirect(`/user/${userName}`);
               } catch (err) {

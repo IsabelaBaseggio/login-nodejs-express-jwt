@@ -2,7 +2,7 @@ let jwt = require('jsonwebtoken');
 
 module.exports = function (req, res, next) {
 
-    const token = req.header('authorization-token');
+    const token = req.cookies.authorization_token;
 
     if(!token){
         req.flash("error_msg", { text: "Access Denied! User must be logged in to gain access." });
@@ -20,7 +20,8 @@ module.exports = function (req, res, next) {
 
         next();
     } catch (error) {
-        res.status(401).send('Access Denied');
+        req.flash("error_msg", { text: "Access Denied! User must be logged in to gain access." });
+        res.redirect("/login");
     }
 
 }
