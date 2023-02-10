@@ -15,8 +15,8 @@
     <header id="headerUser">
       <div id="dashboardUser">
         <ul id="navbar" class="navbarSettings">
-          <li id="userName"><a href="/user/<%= user.firstName + user.lastName %>">User Name</a></li>
-          <li><a href="/user/<%= user.firstName + user.lastName %>">Home</a></li>
+          <li id="userName"><a href="/user/<%= user.firstName %><%= user.lastName %>"><%= user.firstName %> <%= user.lastName %></a></li>
+          <li><a href="/user/<%= user.firstName %><%= user.lastName %>">Home</a></li>
           <li><a href="" id="logout">Logout</a></li>
         </ul>
 

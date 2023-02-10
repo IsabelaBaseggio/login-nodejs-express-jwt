@@ -211,24 +211,27 @@ const loginUser = (req, res) => {
                 values: values,
               });
             } else {
-              // Logging in user
+              // User logged - session - token
               try {
                 let token = jwt.sign(
                   {
                     user: {
                       id: user._id,
                       email: user.email,
-                      firstName: user.firstName,
-                      lastName: user.lastName,
-                      password: req.body.password,
                     },
                   },
                   process.env.SECRET,
                   { expiresIn: 10800 }
                 );
+                req.session.token = token;
+                req.session.user = {
+                  id: user._id,
+                  email: user.email,
+                  firstName: user.firstName,
+                  lastName: user.lastName,
+                  password: req.body.password,
+                };
                 let userName = user.firstName + user.lastName;
-                // redirect não permite utilizar header(), então deve enviar o token por cookie
-                res.cookie("authorization_token", token, {maxAge: 10800000, httpOnly: true, secure: false});
                 req.flash("success_msg", { text: "User Logged" });
                 res.redirect(`/user/${userName}`);
               } catch (err) {
