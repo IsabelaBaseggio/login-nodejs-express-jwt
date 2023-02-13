@@ -23,7 +23,10 @@
         <div id="settings">
           <div id="update">
             <h2>Update</h2>
-            <form action="/user/<%= user.firstName %><%= user.lastName %>" method="post">
+            <% if(messages) { %> <%- include('../components/message', {type:
+              messages.type, messages: messages, typeClass: 'form'}) %> <% } %> 
+
+            <form action="/user/<%= user.firstName %><%= user.lastName %>/settings" method="post">
               <label for="firstName">First Name</label>
               <input type="text" name="firstName" id="firstName" 
               value=" <%= user.firstName %>"/>

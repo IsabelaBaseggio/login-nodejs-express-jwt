@@ -128,7 +128,6 @@ const registerUser = async (req, res) => {
               );
               let userName = user.firstName + user.lastName;
               req.flash("success_msg", { text: "User successfully created" });
-              res.header("authorization-token", token);
               res.redirect(`/user/${userName}`);
             });
           } catch (err) {
