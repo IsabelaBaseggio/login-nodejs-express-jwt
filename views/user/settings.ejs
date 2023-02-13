@@ -23,13 +23,16 @@
         <div id="settings">
           <div id="update">
             <h2>Update</h2>
-            <form action="" method="post">
+            <form action="/user/<%= user.firstName %><%= user.lastName %>" method="post">
               <label for="firstName">First Name</label>
-              <input type="text" name="firstName" id="firstName" />
+              <input type="text" name="firstName" id="firstName" 
+              value=" <%= user.firstName %>"/>
               <label for="laststName">Last Name</label>
-              <input type="text" name="lastName" id="lastName" />
+              <input type="text" name="lastName" id="lastName"
+              value="<%= user.lastName %>"/>
               <label for="email">Email</label>
-              <input type="text" name="email" id="email" />
+              <input type="text" name="email" id="email" 
+              value="<%= user.email %>"/>
               <label for="password">Password</label>
               <input type="password" name="password" id="password" />
               <button type="submit">Save</button>

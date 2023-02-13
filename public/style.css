@@ -296,6 +296,8 @@ div#dashboardUser div#settings div#update form input{
 
   border-radius: 20px;
   border: 1px solid #adb5bd;
+
+  font-size: 1.1rem;
 }
 
 div#update form button{
@@ -397,8 +399,12 @@ section.message-alert span i{
   cursor: pointer;
 }
 
-section.message-alert span i:hover{
+section.message-alert.message-success span i:hover{
   color: rgb(0, 163, 0);
+}
+
+section.message-alert.message-danger span i:hover{
+  color: rgb(250, 88, 88);
 }
 
 form::-webkit-scrollbar-track
