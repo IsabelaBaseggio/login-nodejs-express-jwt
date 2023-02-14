@@ -12,9 +12,7 @@ module.exports = function (req, res, next) {
     try {
         const userVerified = jwt.verify(token, process.env.SECRET);
 
-        let user = userVerified
-
-        console.log(user);
+        console.log(userVerified);
 
         next();
     } catch (error) {

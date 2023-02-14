@@ -12,6 +12,9 @@
     <title>Document</title>
   </head>
   <body>
+    <% if(error_msg.length > 0) { %> <%- include('../components/message', {type:
+      'danger', messages: error_msg, typeClass: 'alert'}) %> <% } %>
+
     <header id="headerUser">
       <div id="dashboardUser">
         <ul id="navbar" class="navbarSettings">
@@ -23,10 +26,9 @@
         <div id="settings">
           <div id="update">
             <h2>Update</h2>
-            <% if(messages) { %> <%- include('../components/message', {type:
-              messages.type, messages: messages, typeClass: 'form'}) %> <% } %> 
 
             <form action="/user/<%= user.firstName %><%= user.lastName %>/settings" method="post">
+              <input type="hidden" name="userId" value="<%= user.id %>" />
               <label for="firstName">First Name</label>
               <input type="text" name="firstName" id="firstName" 
               value=" <%= user.firstName %>"/>

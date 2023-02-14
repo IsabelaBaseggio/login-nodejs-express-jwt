@@ -20,15 +20,14 @@
           <h2>Sign In</h2>
           <form action="/login" method="post">
             <% if(messages) { %> <%- include('../components/message', {type:
-            type, messages: messages, typeClass: 'form'}) %> <% } %> 
+            type, messages: messages, typeClass: 'form'}) %> <% } %>
 
-            <% if(success_msg.length > 0) { %> <%- include('../components/message', {type:
-              'success', messages: success_msg, typeClass: 'form'}) %> <% } %>
-
-              <% if(error_msg.length > 0) { %> <%- include('../components/message', {type:
-                'danger', messages: error_msg, typeClass: 'alert'}) %> <% } %>
-              
-            <% if(values) {%>
+            <% if(success_msg.length > 0) { %> <%- include('../components/message',
+            {type: 'success', messages: success_msg, typeClass: 'form'}) %> <% } %> 
+            
+            <% if(error_msg.length > 0) { %> <%-
+            include('../components/message', {type: 'danger', messages:
+            error_msg, typeClass: 'alert'}) %> <% } %> <% if(values) {%>
             <label for="email">Email</label>
             <input
               type="text"

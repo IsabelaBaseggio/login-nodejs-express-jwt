@@ -61,7 +61,9 @@ const updatingUser = (req, res) => {
     return stringEmail.test(email);
   }
 
-  User.findOne({ email: values.email }).then((user) => {
+  console.log(req.body.password.length);
+
+  User.findOne({ id: req.body.userId }).then((user) => {
     if (!user) {
       try {
         messages.push({ text: "User not found" });
@@ -101,19 +103,17 @@ const updatingUser = (req, res) => {
         messages.push({ text: "Invalid Email" });
       }
 
-      if (
-        req.body.password ||
-        typeof req.body.password != undefined ||
-        (req.body.password != null && req.body.password.length <= 7)
-      ) {
-        messages.push({ text: "Invalid Password" });
+      if(req.body.password.length !== 0 && req.body.password.length <= 7){
+
+      messages.push({ text: "Invalid Password" });
+
       }
 
       if (messages.length > 0) {
         try {
           let userName = user.firstName + user.lastName;
-          req.flash("messages", {type: "danger", text: messages});
-          res.redirect(`/user/${userName}`);
+          req.flash("error_msg", messages);
+          res.redirect(`/user/${userName}/settings`);
         } catch (err) {
           res.status(500).send({ error: err.message });
         }

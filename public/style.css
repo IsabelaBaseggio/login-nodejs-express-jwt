@@ -222,14 +222,14 @@ div#dashboardUser div#userHome{
   background-color: #3F3D56;
 }
 
-div#dashboardUser div p{
+div#dashboardUser div p#homeQuote{
   width: 40%;
 
   color: #fff;
   text-align: center;
 }
 
-div#dashboardUser div p span{
+div#dashboardUser div p#homeQuote span{
   margin: 20px;
   display: block;
 
@@ -405,6 +405,12 @@ section.message-alert.message-success span i:hover{
 
 section.message-alert.message-danger span i:hover{
   color: rgb(250, 88, 88);
+}
+
+section.message-alert p{
+  display: inline;
+
+  /* width: 90%; */
 }
 
 form::-webkit-scrollbar-track
