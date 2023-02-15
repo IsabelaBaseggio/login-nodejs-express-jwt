@@ -112,24 +112,29 @@ const registerUser = async (req, res) => {
               password: bcrypt.hashSync(req.body.password),
             });
 
-            newUser.save().then(() => {
-              let token = jwt.sign(
-                {
-                  user: {
-                    id: user._id,
-                    email: user.email,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    password: req.body.password,
+            newUser
+              .save()
+              .then(() => {
+                let token = jwt.sign(
+                  {
+                    user: {
+                      id: user._id,
+                      email: user.email,
+                      firstName: user.firstName,
+                      lastName: user.lastName,
+                      password: req.body.password,
+                    },
                   },
-                },
-                process.env.SECRET,
-                { expiresIn: 10800 }
-              );
-              let userName = user.firstName + user.lastName;
-              req.flash("success_msg", { text: "User successfully created" });
-              res.redirect(`/user/${userName}`);
-            });
+                  process.env.SECRET,
+                  { expiresIn: 10800 }
+                );
+                let userName = user.firstName + user.lastName;
+                req.flash("success_msg", { text: "User successfully created" });
+                res.redirect(`/user/${userName}`);
+              })
+              .catch((err) => {
+                res.status(500).send({ error: err.message });
+              });
           } catch (err) {
             res.status(500).send({ error: err.message });
           }
@@ -228,7 +233,6 @@ const loginUser = (req, res) => {
                   email: user.email,
                   firstName: user.firstName,
                   lastName: user.lastName,
-                  password: req.body.password,
                 };
                 let userName = user.firstName + user.lastName;
                 req.flash("success_msg", { text: "User Logged" });

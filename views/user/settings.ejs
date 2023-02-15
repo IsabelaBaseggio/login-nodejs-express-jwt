@@ -14,6 +14,8 @@
   <body>
     <% if(error_msg.length > 0) { %> <%- include('../components/message', {type:
       'danger', messages: error_msg, typeClass: 'alert'}) %> <% } %>
+      <% if(success_msg.length > 0) { %> <%- include('../components/message', {type:
+        'success', messages: success_msg, typeClass: 'alert'}) %> <% } %>
 
     <header id="headerUser">
       <div id="dashboardUser">
