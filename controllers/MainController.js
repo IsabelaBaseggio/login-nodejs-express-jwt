@@ -154,7 +154,7 @@ const loginPage = (req, res) => {
   }
 };
 
-const loginUser = (req, res) => {
+const loginUser = (req, res, next) => {
   messages = [];
   let values = {
     email: req.body.email,

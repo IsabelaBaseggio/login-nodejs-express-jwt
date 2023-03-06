@@ -6,6 +6,8 @@ const userRoute = require("./routes/user");
 const session = require('express-session');
 const flash = require('connect-flash');
 const connectDB = require("./database/db");
+const passport = require("passport");
+require("./controllers/AuthUserController")(passport);
 
 // Init Express App
 const app = express();
@@ -25,6 +27,10 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(flash());
 
 // Middleware - Flash
