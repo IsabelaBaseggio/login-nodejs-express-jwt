@@ -13,9 +13,9 @@ module.exports = function (passport) {
           return done(null, false, { messages: "Incorrect email or password" });
         }
 
-        bcrypt.compare(password, user.password, (err, check) => {
+        bcrypt.compareSync(password, user.password, (err, check) => {
           if (check) {
-            return done(null, user);
+            return done(null, user, { messages: "User Logged" });
           } else {
             return done(null, false, {
               messages: "Incorrect email or password",

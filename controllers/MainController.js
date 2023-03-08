@@ -118,17 +118,21 @@ const registerUser = async (req, res) => {
                 let token = jwt.sign(
                   {
                     user: {
-                      id: user._id,
-                      email: user.email,
-                      firstName: user.firstName,
-                      lastName: user.lastName,
-                      password: req.body.password,
+                      id: newUser._id,
+                      email: newUser.email,
                     },
                   },
                   process.env.SECRET,
                   { expiresIn: 10800 }
                 );
-                let userName = user.firstName + user.lastName;
+                req.session.token = token;
+                req.session.user = {
+                  id: newUser._id,
+                  email: newUser.email,
+                  firstName: newUser.firstName,
+                  lastName: newUser.lastName,
+                };
+                let userName = newUser.firstName + newUser.lastName;
                 req.flash("success_msg", { text: "User successfully created" });
                 res.redirect(`/user/${userName}`);
               })
@@ -308,19 +312,7 @@ const createLinkResetPassword = (req, res) => {
             linksSecret,
             { expiresIn: 300 }
           );
-          console.log(jwt.decode(tokenLink)); /* {
-            id: '63e2b710796285ad1d97fcfd',
-            email: 'nome@alura.com.br',
-            iat: 1675802571,
-            exp: 1675802871
-          } */
-          /* 
-          console.log(jwt.decode(tokenLink).id) -> 63e2b710796285ad1d97fcfd
-          console.log(jwt.decode(tokenLink).email) -> nome@alura.com.br
-          console.log(jwt.decode(tokenLink).iat) -> 1675802571
-          console.log(jwt.decode(tokenLink).exp) -> 1675802571
-          */
-          // criar um token quando logar e registar e passar as informações do usuario para na verificação do token retornar o user junto e enviar pro front com o render, como uma variavel global
+          console.log(jwt.decode(tokenLink));
           let link = `http://localhost:3000/reset/${user._id}/${tokenLink}`;
 
           const transporter = nodemailer.createTransport({

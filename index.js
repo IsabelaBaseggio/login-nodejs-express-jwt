@@ -8,6 +8,7 @@ const flash = require('connect-flash');
 const connectDB = require("./database/db");
 const passport = require("passport");
 require("./controllers/AuthUserController")(passport);
+// passport is not being used, maybe uninstall(?)
 
 // Init Express App
 const app = express();

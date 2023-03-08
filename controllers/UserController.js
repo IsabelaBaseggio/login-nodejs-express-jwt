@@ -20,30 +20,12 @@ const mainUser = (req, res) => {
 };
 
 const settingsPage = (req, res) => {
-  let userId = req.session.user.id;
-
   try {
-    User.findOne({ id: userId }).then((user) => {
-      if (!user) {
-        try {
-          messages.push({ text: "User not found" });
-          typeMsg = "danger";
-          res.render("main/login", {
-            messages: messages,
-            type: typeMsg,
-            values: null,
-          });
-        } catch (err) {
-          res.status(500).send({ error: err.message });
-        }
-      } else {
         res.render("user/settings", {
           messages: null,
           type: null,
-          user: user,
+          user: req.session.user,
         });
-      }
-    });
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
