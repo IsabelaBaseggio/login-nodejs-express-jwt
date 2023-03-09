@@ -29,7 +29,7 @@
           <div id="update">
             <h2>Update</h2>
 
-            <form action="/user/<%= user.firstName %><%= user.lastName %>/settings" method="post">
+            <form action="/user/<%= user.firstName %><%= user.lastName %>/update" method="post">
               <input type="hidden" name="userId" value="<%= user.id %>" />
               <label for="firstName">First Name</label>
               <input type="text" name="firstName" id="firstName" 

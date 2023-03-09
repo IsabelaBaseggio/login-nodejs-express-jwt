@@ -1,5 +1,3 @@
-// is not being used
-
 let jwt = require('jsonwebtoken');
 
 module.exports = function (req, res, next) {

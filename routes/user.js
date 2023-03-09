@@ -7,6 +7,6 @@ routes.get("/:user", auth, UserController.mainUser);
 
 routes.get("/:user/settings", auth, UserController.settingsPage);
 
-routes.post("/:user/settings", auth, UserController.updatingUser);
+routes.post("/:user/update", auth, UserController.updatingUser);
 
 module.exports = routes;

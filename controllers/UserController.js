@@ -1,7 +1,7 @@
 const { type } = require("@hapi/joi/lib/extend");
 const mongoose = require("mongoose");
-require("../models/User");
-const User = mongoose.model("Users");
+const User = require("../models/User");
+const Users = mongoose.model("Users");
 const bcrypt = require("bcryptjs");
 
 let messages = [];
@@ -31,7 +31,6 @@ const settingsPage = (req, res) => {
   }
 };
 
-// MUDAR NOME DA ROTA 'POST' DE /:user/settings para /:user/update
 const updatingUser = async (req, res) => {
   messages = [];
   let values = await {
@@ -45,7 +44,7 @@ const updatingUser = async (req, res) => {
   }
 
   try {
-    User.findOne({ id: req.body.userId }).then((user) => {
+    Users.findOne({ id: req.body.userId }).then((user) => {
       if (!user) {
         try {
           messages.push({ text: "User not found" });
@@ -101,7 +100,7 @@ const updatingUser = async (req, res) => {
           }
         } else {
           let userData;
-  
+ 
           if(req.body.password.length > 7){
             userData = {...values, password: bcrypt.hashSync(req.body.password)};
           } else {
@@ -109,8 +108,9 @@ const updatingUser = async (req, res) => {
           }
   
           try {
-            userData.save().then((userUpdated) => {
-              req.session.user = userUpdated;
+            User.updateOne({_id: req.body.userId}, userData).then(() => {
+              req.session.user = {id: req.body.userId, ...userData};
+              console.log(req.session.user);
     
               let userName = req.session.user.firstName + req.session.user.lastName;
     
