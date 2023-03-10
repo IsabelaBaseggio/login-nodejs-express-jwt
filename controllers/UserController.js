@@ -25,6 +25,7 @@ const settingsPage = (req, res) => {
           messages: null,
           type: null,
           user: req.session.user,
+          deleteModal: false
         });
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -131,8 +132,52 @@ const updatingUser = async (req, res) => {
 
 };
 
+const deleteConfirm = (req, res) => {
+
+  try {
+    
+    Users.findOne({_id: req.body.userId}).then((user) => {
+
+      try {
+        
+        if (!user){
+
+          messages.push({ text: "User not found" });
+          typeMsg = "danger";
+          res.render("main/login", {
+            messages: messages,
+            type: typeMsg,
+            values: null,
+          });
+
+        } else {
+
+          res.render("user/settings", {
+            messages: null,
+            type: null,
+            user: req.session.user,
+            deleteModal: true
+          }); 
+
+        }
+
+      } catch (err) {
+        
+        res.status(500).send({ error: err.message });
+
+      }
+
+    })
+
+  } catch (err) {
+    
+  }
+
+}
+
 module.exports = {
   mainUser,
   settingsPage,
   updatingUser,
+  deleteConfirm,
 };

@@ -48,8 +48,8 @@
 
           <div id="delete">
             <p>or...</p>
-            <form action="" method="delete">
-              <input type="hidden" value="colocarOidDoUserAqui" />
+            <form action="/user/<%= user.firstName %><%= user.lastName %>/delete" method="post">
+              <input type="hidden" name="userId" value="<%= user.id %>" />
               <button type="submit">Delete account</button>
             </form>
           </div>

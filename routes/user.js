@@ -9,4 +9,6 @@ routes.get("/:user/settings", auth, UserController.settingsPage);
 
 routes.post("/:user/update", auth, UserController.updatingUser);
 
+routes.post("/:user/delete", auth, UserController.deleteConfirm)
+
 module.exports = routes;
