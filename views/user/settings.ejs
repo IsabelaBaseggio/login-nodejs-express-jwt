@@ -48,7 +48,7 @@
 
           <div id="delete">
             <p>or...</p>
-            <form action="/user/<%= user.firstName %><%= user.lastName %>/delete" method="post">
+            <form action="/user/<%= user.firstName %><%= user.lastName %>/deleteConfirm" method="post">
               <input type="hidden" name="userId" value="<%= user.id %>" />
               <button type="submit">Delete account</button>
             </form>
@@ -60,6 +60,10 @@
     <section id="icon">
       <div id="iconUser"></div>
     </section>
+
+    <% if(deleteModal) { %>
+      <%- include('../components/deleteModal', {id: user.id }) %>
+    <% } %>
 
     <% if(success_msg.length > 0) { %> <%- include('../components/message',
     {type: 'success', messages: success_msg, typeClass: 'alert'}) %> <% } %>
