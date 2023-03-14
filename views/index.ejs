@@ -22,5 +22,8 @@
           <li><a href="/login">Sign in</a></li>
         </ul>
     </header>
+
+    <% if(success_msg.length > 0) { %> <%- include('./components/message',
+    {type: 'success', messages: success_msg, typeClass: 'alert'}) %> <% } %>
   </body>
 </html>

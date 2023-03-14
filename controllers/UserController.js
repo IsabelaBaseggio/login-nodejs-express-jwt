@@ -175,9 +175,24 @@ const deleteConfirm = (req, res) => {
 
 }
 
+const deleteAccount = async (req, res) => {
+
+  try {
+
+    await Users.deleteOne({_id: req.params.id});
+    req.flash("success_msg", { text: "User account successfully deleted" });
+    res.redirect("/");
+
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+
+}
+
 module.exports = {
   mainUser,
   settingsPage,
   updatingUser,
   deleteConfirm,
+  deleteAccount,
 };
