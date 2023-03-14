@@ -341,6 +341,125 @@ div#delete form button:hover{
   background-color: rgb(248, 72, 72);
 }
 
+/* Delete Modal */
+
+section#modal {
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #00000080;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+
+}
+
+div#card{
+
+  max-width: 30rem;
+  position: relative;
+  background-color: #3F3D56;
+  border-radius: 10px;
+
+}
+
+div#head{
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+
+}
+
+div#card h2 {
+
+  margin: 0;
+  color: #fff;
+
+}
+
+div#card a#close{
+
+  color: #ff000d;
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: all 0.3s ease-in-out;
+
+}
+
+div#card a#close i {
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3rem;
+}
+
+div#card a#close:hover {
+  color: rgb(248, 72, 72);
+}
+
+div#card hr {
+  width: 90%;
+  margin: 0 auto;
+  border-color: #a7aacc;
+}
+
+div#card p {
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 1.3rem;
+  line-height: 2rem;
+  color: #fff;
+}
+
+div#btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+div#btns a {
+  text-decoration: none;
+  padding: 0.5rem;
+  width: 7rem;
+  text-align: center;
+  background-color: #3F3D56;
+  font-size: 1.5rem;
+}
+
+div#btns a#btnNot {
+  color: #ff000d;
+  border: solid 1px #ff000d;
+  border-radius: 50px;
+  margin-right: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+div#btns a#btnNot:hover {
+  background-color: #ff000d;
+  color: #fff;
+}
+
+div#btns a#btnYes {
+  color: #55ff00;
+  border-radius: 50px;
+  border: solid 1px #55ff00;
+  transition: all 0.3s ease-in-out;
+}
+
+div#btns a#btnYes:hover {
+  background-color: #55ff00;
+  color: #fff;
+
+
+}
+
 /* Message */
 section.message{
   width: 90%;
