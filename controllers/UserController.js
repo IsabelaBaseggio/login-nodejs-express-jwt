@@ -13,6 +13,7 @@ const mainUser = (req, res) => {
       messages: null,
       type: null,
       user: req.session.user,
+      logoutModal: false
     });
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -170,7 +171,7 @@ const deleteConfirm = (req, res) => {
     })
 
   } catch (err) {
-    
+    res.status(500).send({ error: err.message });
   }
 
 }
@@ -189,10 +190,28 @@ const deleteAccount = async (req, res) => {
 
 }
 
+const logoutConfirm = (req, res) => {
+
+  try {
+    
+    res.render("user/main", {
+      messages: null,
+      type: null,
+      user: req.session.user,
+      logoutModal: true
+    }); 
+
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+
+}
+
 module.exports = {
   mainUser,
   settingsPage,
   updatingUser,
   deleteConfirm,
   deleteAccount,
+  logoutConfirm
 };

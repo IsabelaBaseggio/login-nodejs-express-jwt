@@ -22,7 +22,7 @@
         <ul id="navbar" class="navbarSettings">
           <li id="userName"><a href="/user/<%= user.firstName %><%= user.lastName %>"><%= user.firstName %> <%= user.lastName %></a></li>
           <li><a href="/user/<%= user.firstName %><%= user.lastName %>">Home</a></li>
-          <li><a href="" id="logout">Logout</a></li>
+          <li><a href="/user/<%= user.firstName %><%= user.lastName %>/logout" id="logout">Logout</a></li>
         </ul>
 
         <div id="settings">

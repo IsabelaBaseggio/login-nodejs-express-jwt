@@ -9,8 +9,10 @@ routes.get("/:user/settings", auth, UserController.settingsPage);
 
 routes.post("/:user/update", auth, UserController.updatingUser);
 
-routes.post("/:user/deleteConfirm", auth, UserController.deleteConfirm)
+routes.post("/:user/deleteConfirm", auth, UserController.deleteConfirm);
 
-routes.get("/:user/:id/deleteAccount", auth, UserController.deleteAccount)
+routes.get("/:user/:id/deleteAccount", auth, UserController.deleteAccount);
+
+routes.get("/:user/logout", auth, UserController.logoutConfirm);
 
 module.exports = routes;
