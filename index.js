@@ -18,10 +18,6 @@ const port = process.env.PORT;
 
 //Configs
 
-// Parse JSON Data
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
 // Session, Cookies & Flash
 app.use(session({
   secret: process.env.SECRET,
@@ -39,9 +35,13 @@ app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.messages = req.flash('messages');
-  res.locals.user = req.session || null;
+  res.locals.user = req.user || null;
   next();
 })
+
+// Parse JSON Data
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // EJS
 app.set("view engine", "ejs");

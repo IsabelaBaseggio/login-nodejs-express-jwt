@@ -3,9 +3,10 @@ const mongoose = require("mongoose");
 require("../models/User");
 const User = mongoose.model("Users");
 const bcrypt = require("bcryptjs");
+const passport = require('passport');
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
-const values = require("@hapi/joi/lib/values");
+// const values = require("@hapi/joi/lib/values");
 
 let messages = [];
 let typeMsg = "";
@@ -115,26 +116,13 @@ const registerUser = async (req, res) => {
             newUser
               .save()
               .then(() => {
-                let token = jwt.sign(
-                  {
-                    user: {
-                      id: newUser._id,
-                      email: newUser.email,
-                    },
-                  },
-                  process.env.SECRET,
-                  { expiresIn: 10800 }
-                );
-                req.session.token = token;
-                req.session.user = {
-                  id: newUser._id,
-                  email: newUser.email,
-                  firstName: newUser.firstName,
-                  lastName: newUser.lastName,
-                };
-                let userName = newUser.firstName + newUser.lastName;
-                req.flash("success_msg", { text: "User successfully created" });
-                res.redirect(`/user/${userName}`);
+                messages.push({ text: "User successfully created" });
+                typeMsg = "success";
+                res.render("main/register", {
+                  messages: messages,
+                  type: typeMsg,
+                  values: null
+                });
               })
               .catch((err) => {
                 res.status(500).send({ error: err.message });
@@ -160,36 +148,9 @@ const loginPage = (req, res) => {
 
 const loginUser = (req, res, next) => {
   messages = [];
-  let values = {
-    email: req.body.email,
-  };
-
-  if (
-    !values.email ||
-    typeof values.email == undefined ||
-    values.email == null ||
-    !req.body.password ||
-    typeof req.body.password == undefined ||
-    req.body.password == null
-  ) {
-    messages.push({ text: "Incorrect email or password" });
-  }
-
-  if (messages.length > 0) {
-    try {
-      typeMsg = "danger";
-      res.render("main/login", {
-        messages: messages,
-        type: typeMsg,
-        values: values,
-      });
-    } catch (err) {
-      res.status(500).send({ error: err.message });
-    }
-  } else {
     try {
       // Check if email is already registered
-      User.findOne({ email: values.email }).then((user) => {
+      User.findOne({ email: req.body.email }).then((user) => {
         if (!user) {
           try {
             messages.push({ text: "Incorrect email or password" });
@@ -197,63 +158,27 @@ const loginUser = (req, res, next) => {
             res.render("main/login", {
               messages: messages,
               type: typeMsg,
-              values: values,
+              values: null,
             });
           } catch (err) {
             res.status(500).send({ error: err.message });
           }
         } else {
-          try {
-            const passwordAndEmailMarch = bcrypt.compareSync(
-              req.body.password,
-              user.password
-            );
-
-            // Comparing passwords
-            if (!passwordAndEmailMarch) {
-              messages.push({ text: "Incorrect email or password" });
-              typeMsg = "danger";
-              res.render("main/login", {
-                messages: messages,
-                type: typeMsg,
-                values: values,
-              });
-            } else {
               // User logged - session - token
-              try {
-                let token = jwt.sign(
-                  {
-                    user: {
-                      id: user._id,
-                      email: user.email,
-                    },
-                  },
-                  process.env.SECRET,
-                  { expiresIn: 10800 }
-                );
-                req.session.token = token;
-                req.session.user = {
-                  id: user._id,
-                  email: user.email,
-                  firstName: user.firstName,
-                  lastName: user.lastName,
-                };
+              console.log("passed here")
+
                 let userName = user.firstName + user.lastName;
-                req.flash("success_msg", { text: "User Logged" });
-                res.redirect(`/user/${userName}`);
-              } catch (err) {
-                res.status(500).send({ error: err.message });
-              }
-            }
-          } catch (err) {
-            res.status(500).send({ error: err.message });
-          }
+                passport.authenticate('local', {
+                  successRedirect:`/user/${userName}`,
+                  failureRedirect: 'main/login',
+                  failureFlash: true,
+              })(req, res, next);
         }
       });
     } catch (err) {
       res.status(500).send({ error: err.message });
     }
-  }
+  
 };
 
 const resetPasswordPage = (req, res) => {
