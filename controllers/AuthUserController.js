@@ -16,30 +16,9 @@ module.exports = function (passport) {
           return done(null, false, { messages: "Incorrect email or password" });
         }
 
-        console.log("passed here 2")
-
-        console.log(password)
-        console.log(user.password);
-
         let check = bcrypt.compareSync(password, user.password);
-        console.log(check);
           if (check) {
-            let token = jwt.sign(
-              {
-                user: {
-                  id: user._id,
-                  email: user.email,
-                },
-              },
-              process.env.SECRET,
-              { expiresIn: 10800 }
-            );
-
-            // colocar o token em um cookie para autenticar o usuário
-            // req.session.token = token;
-
-
-            return done(null, user, { messages: "User Logged" });
+            return done(null, user);
           } else {
             return done(null, false, {
               messages: "Incorrect email or password",

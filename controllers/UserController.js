@@ -13,7 +13,7 @@ const mainUser = (req, res) => {
       messages: null,
       type: null,
       user: req.session.user,
-      logoutModal: false
+      logoutModal: false,
     });
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -22,12 +22,12 @@ const mainUser = (req, res) => {
 
 const settingsPage = (req, res) => {
   try {
-        res.render("user/settings", {
-          messages: null,
-          type: null,
-          user: req.session.user,
-          deleteModal: false
-        });
+    res.render("user/settings", {
+      messages: null,
+      type: null,
+      user: req.session.user,
+      deleteModal: false,
+    });
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
@@ -46,7 +46,7 @@ const updatingUser = async (req, res) => {
   }
 
   try {
-    Users.findOne({ id: req.body.userId }).then((user) => {
+    User.findOne({ id: req.body.userId }).then((user) => {
       if (!user) {
         try {
           messages.push({ text: "User not found" });
@@ -68,7 +68,7 @@ const updatingUser = async (req, res) => {
         ) {
           messages.push({ text: "Invalid First Name" });
         }
-  
+
         if (
           !values.lastName ||
           typeof values.lastName == undefined ||
@@ -76,7 +76,7 @@ const updatingUser = async (req, res) => {
         ) {
           messages.push({ text: "Invalid Last Name" });
         }
-  
+
         if (
           !values.email ||
           typeof values.email == undefined ||
@@ -85,13 +85,11 @@ const updatingUser = async (req, res) => {
         ) {
           messages.push({ text: "Invalid Email" });
         }
-  
-        if(req.body.password.length !== 0 && req.body.password.length <= 7){
-  
-        messages.push({ text: "Invalid Password" });
-  
+
+        if (req.body.password.length !== 0 && req.body.password.length <= 7) {
+          messages.push({ text: "Invalid Password" });
         }
-  
+
         if (messages.length > 0) {
           try {
             let userName = user.firstName + user.lastName;
@@ -102,47 +100,43 @@ const updatingUser = async (req, res) => {
           }
         } else {
           let userData;
- 
-          if(req.body.password.length > 7){
-            userData = {...values, password: bcrypt.hashSync(req.body.password)};
+
+          if (req.body.password.length > 7) {
+            userData = {
+              ...values,
+              password: bcrypt.hashSync(req.body.password),
+            };
           } else {
             userData = {...values};
           }
-  
-          try {
-            User.updateOne({_id: req.body.userId}, userData).then(() => {
-              req.session.user = {id: req.body.userId, ...userData};
+
+          User.updateOne( {id: req.body.userId}, userData)
+            .then(() => {
+              req.session.user = { id: req.body.userId, ...userData };
               console.log(req.session.user);
-    
-              let userName = req.session.user.firstName + req.session.user.lastName;
-    
+
+              let userName =
+                req.session.user.firstName + req.session.user.lastName;
+
               req.flash("success_msg", { text: "User Updated" });
               res.redirect(`/user/${userName}/settings`);
-            }).catch((err) => {
-              res.status(500).send({ error: err.message });
             })
-          } catch (err) {
-            res.status(500).send({ error: err.message });
-          }   
+            .catch((err) => {
+              res.status(500).send({ error: err.message });
+            });
         }
       }
     });
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
-
 };
 
 const deleteConfirm = (req, res) => {
-
   try {
-    
-    Users.findOne({_id: req.body.userId}).then((user) => {
-
+    User.findOne({ _id: req.body.userId }).then((user) => {
       try {
-        
-        if (!user){
-
+        if (!user) {
           messages.push({ text: "User not found" });
           typeMsg = "danger";
           res.render("main/login", {
@@ -150,62 +144,45 @@ const deleteConfirm = (req, res) => {
             type: typeMsg,
             values: null,
           });
-
         } else {
-
           res.render("user/settings", {
             messages: null,
             type: null,
             user: req.session.user,
-            deleteModal: true
-          }); 
-
+            deleteModal: true,
+          });
         }
-
       } catch (err) {
-        
         res.status(500).send({ error: err.message });
-
       }
-
-    })
-
+    });
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
-
-}
+};
 
 const deleteAccount = async (req, res) => {
-
   try {
-
-    await Users.deleteOne({_id: req.params.id});
+    await User.deleteOne({ _id: req.params.id });
     req.flash("success_msg", { text: "User account successfully deleted" });
     res.redirect("/");
-
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
-
-}
+};
 
 const logoutConfirm = (req, res) => {
-
   try {
-    
     res.render("user/main", {
       messages: null,
       type: null,
       user: req.session.user,
-      logoutModal: true
-    }); 
-
+      logoutModal: true,
+    });
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
-
-}
+};
 
 module.exports = {
   mainUser,
@@ -213,5 +190,5 @@ module.exports = {
   updatingUser,
   deleteConfirm,
   deleteAccount,
-  logoutConfirm
+  logoutConfirm,
 };

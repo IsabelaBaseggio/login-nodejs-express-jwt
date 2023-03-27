@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 require("../models/User");
 const User = mongoose.model("Users");
 const bcrypt = require("bcryptjs");
-const passport = require('passport');
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 // const values = require("@hapi/joi/lib/values");
@@ -146,7 +145,7 @@ const loginPage = (req, res) => {
   }
 };
 
-const loginUser = (req, res, next) => {
+const loginUser = (req, res) => {
   messages = [];
     try {
       // Check if email is already registered
@@ -165,14 +164,23 @@ const loginUser = (req, res, next) => {
           }
         } else {
               // User logged - session - token
-              console.log("passed here")
+              let token = jwt.sign(
+                {
+                  user: {
+                    id: user._id,
+                    email: user.email,
+                  },
+                },
+                process.env.SECRET,
+                { expiresIn: 10800 }
+              );
 
                 let userName = user.firstName + user.lastName;
-                passport.authenticate('local', {
-                  successRedirect:`/user/${userName}`,
-                  failureRedirect: 'main/login',
-                  failureFlash: true,
-              })(req, res, next);
+
+                req.session.token = token;
+                req.session.user = user;
+                req.flash("success_msg", { text: "User Logged" });
+                res.redirect(`user/${userName}`);
         }
       });
     } catch (err) {
