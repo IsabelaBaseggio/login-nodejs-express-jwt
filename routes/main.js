@@ -11,7 +11,7 @@ routes.post("/register", MainController.registerUser);
 routes.get('/login', MainController.loginPage);
 
 routes.post('/login', passport.authenticate('local', {
-    failureRedirect: 'main/login',
+    failureRedirect: '/login',
     failureFlash: true,
 }), MainController.loginUser);
 

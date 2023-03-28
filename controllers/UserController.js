@@ -1,7 +1,7 @@
 const { type } = require("@hapi/joi/lib/extend");
 const mongoose = require("mongoose");
-const User = require("../models/User");
-const Users = mongoose.model("Users");
+require("../models/User")
+const User = mongoose.model("Users");
 const bcrypt = require("bcryptjs");
 
 let messages = [];
@@ -45,8 +45,9 @@ const updatingUser = async (req, res) => {
     return stringEmail.test(email);
   }
 
-  try {
-    User.findOne({ id: req.body.userId }).then((user) => {
+  console.log(req.body.userId);
+
+    User.findOne({ _id: req.body.userId }).then((user) => {
       if (!user) {
         try {
           messages.push({ text: "User not found" });
@@ -99,37 +100,35 @@ const updatingUser = async (req, res) => {
             res.status(500).send({ error: err.message });
           }
         } else {
-          let userData;
 
-          if (req.body.password.length > 7) {
-            userData = {
-              ...values,
-              password: bcrypt.hashSync(req.body.password),
-            };
-          } else {
-            userData = {...values};
+          user.firstName = values.firstName;
+          user.lastName = values.lastName;
+          user.email = values.email;
+
+          if(req.body.password > 7) {
+
+            user.password = bcrypt.hashSync(req.body.password);
+
           }
 
-          User.updateOne( {id: req.body.userId}, userData)
-            .then(() => {
-              req.session.user = { id: req.body.userId, ...userData };
-              console.log(req.session.user);
+          user.save().then(() => {
 
-              let userName =
-                req.session.user.firstName + req.session.user.lastName;
+          req.session.user = user;
 
-              req.flash("success_msg", { text: "User Updated" });
-              res.redirect(`/user/${userName}/settings`);
-            })
-            .catch((err) => {
-              res.status(500).send({ error: err.message });
-            });
+          let userName =
+          req.session.user.firstName + req.session.user.lastName;
+
+          req.flash("success_msg", { text: "User Updated" });
+          res.redirect(`/user/${userName}/settings`);
+
+          }).catch((err) => {
+
+            res.status.send({error: err.message});
+
+          });
         }
       }
     });
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
 };
 
 const deleteConfirm = (req, res) => {
@@ -145,6 +144,7 @@ const deleteConfirm = (req, res) => {
             values: null,
           });
         } else {
+          console.log(user);
           res.render("user/settings", {
             messages: null,
             type: null,
