@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 require("../models/User")
 const User = mongoose.model("Users");
 const bcrypt = require("bcryptjs");
+const passport = require('passport');
 
 let messages = [];
 let typeMsg = "";
@@ -184,6 +185,23 @@ const logoutConfirm = (req, res) => {
   }
 };
 
+const logoutAccount = (req, res, next) => {
+
+  req.logout((err) => {
+
+    if(err) {
+
+      return next(err);
+
+    }
+
+    req.flash("success_msg", { text: "User successfully logged out" });
+    res.redirect("/");
+
+  })
+
+}
+
 module.exports = {
   mainUser,
   settingsPage,
@@ -191,4 +209,5 @@ module.exports = {
   deleteConfirm,
   deleteAccount,
   logoutConfirm,
+  logoutAccount
 };

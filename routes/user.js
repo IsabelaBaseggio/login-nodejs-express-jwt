@@ -15,4 +15,6 @@ routes.get("/:user/:id/deleteAccount", auth, UserController.deleteAccount);
 
 routes.get("/:user/logout", auth, UserController.logoutConfirm);
 
+routes.get("/:user/logoutAccount", auth, UserController.logoutAccount);
+
 module.exports = routes;
