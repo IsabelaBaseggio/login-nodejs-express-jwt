@@ -10,19 +10,23 @@ const jwt = require("jsonwebtoken");
 
 module.exports = function (passport) {
   passport.use(
-    new localStrategy({ usernameField: "email" }, (email, password, done) => {
+    new localStrategy({ usernameField: "email",
+     passReqToCallback: true }, // allows us to pass back the entire request to the callback
+      (req, email, password, done) => { // req as parameter to use req.flash
       User.findOne({ email: email }).then((user) => {
         if (!user) {
-          return done(null, false, { messages: "Incorrect email or password" });
+          return done(null, false, req.flash("error_msg", {
+            text: "Incorrect email or password",
+          }));
         }
 
         let check = bcrypt.compareSync(password, user.password);
           if (check) {
             return done(null, user);
           } else {
-            return done(null, false, {
-              messages: "Incorrect email or password",
-            });
+            return done(null, false, req.flash("error_msg", {
+              text: "Incorrect email or password",
+            }));
           }
       });
     })
