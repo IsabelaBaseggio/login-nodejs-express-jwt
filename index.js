@@ -3,12 +3,12 @@ const express = require("express");
 const path = require("path");
 const mainRoute = require("./routes/main");
 const userRoute = require("./routes/user");
+const adminRoute = require("./routes/admin");
 const session = require('express-session');
 const flash = require('connect-flash');
 const connectDB = require("./database/db");
 const passport = require("passport");
 require("./controllers/AuthUserController")(passport);
-// passport is not being used, maybe uninstall(?)
 
 // Init Express App
 const app = express();
@@ -54,6 +54,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routes
 app.use("/", express.json(), mainRoute);
 app.use("/user", express.json(), userRoute);
+app.use("/admin", express.json(), adminRoute);
 
 // Server
 app.listen(port, () => {

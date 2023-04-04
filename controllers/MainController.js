@@ -179,8 +179,19 @@ const loginUser = (req, res) => {
 
                 req.session.token = token;
                 req.session.user = user;
-                req.flash("success_msg", { text: "User Logged" });
-                res.redirect(`user/${userName}`);
+
+                if(user.admin === true) {
+                
+                req.flash("success_msg", { text: "Admin user Logged" });
+                res.redirect(`admin/${userName}`);
+
+                } else {
+
+                  req.flash("success_msg", { text: "User Logged" });
+                  res.redirect(`user/${userName}`);
+
+                }
+                
         }
       });
     } catch (err) {
