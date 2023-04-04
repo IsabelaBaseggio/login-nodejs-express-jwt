@@ -481,7 +481,7 @@ section.message-form{
   text-align: right;
 }
 
-section.message-form span{
+section.message-form span#close{
   display: none;
 }
 
@@ -499,7 +499,7 @@ section.message-alert{
   text-align: justify;
 }
 
-section.message-alert span{
+section.message-alert span#close{
   display: flex;
   justify-content: right;
 
