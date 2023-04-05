@@ -15,17 +15,42 @@
     <header id="headerUser">
       <div id="dashboardUser">
         <ul id="navbar">
+          <% if(admin) {%>
+          <li id="userName"><a href="/admin/<%= user.firstName %><%= user.lastName %>">ADMIN <%= user.firstName %> <%= user.lastName %></a></li>
+          <li><a href="/admin/<%= user.firstName %><%= user.lastName %>/settings">Settings</a></li>
+          <li><a href="/admin/<%= user.firstName %><%= user.lastName %>/logout" id="logout">Logout</a></li>
+          <% } else { %>
           <li id="userName"><a href="/user/<%= user.firstName %><%= user.lastName %>"><%= user.firstName %> <%= user.lastName %></a></li>
           <li><a href="/user/<%= user.firstName %><%= user.lastName %>/settings">Settings</a></li>
           <li><a href="/user/<%= user.firstName %><%= user.lastName %>/logout" id="logout">Logout</a></li>
+          <% } %> 
         </ul>
 
         <div id="userHome">
+          <% if(admin) { %>
+            <h2>Registered users</h2>
+
+            <ul id="usersList">
+              <% usersList.forEach((userData) => { %>
+  
+                <div>
+                  <ul id="userData">
+                    <li><%= userData.firstName %> <%userData.lastName %></li>
+                    <li><%= userData.email %></li>
+                  </ul>
+                  <a href="" class="btnDelete"><i class="material-icons">delete</i></a>
+                </div>
+                
+  
+              <% }) %>
+            </ul>
+          <% } else { %>  
           <p id="homeQuote">
             "Through space the universe encompasses and swallows me up like an
             atom; through thought I comprehend the world."
             <span>Blaise Pascal</span>
           </p>
+          <% } %>
         </div>
       </div>
     </header>

@@ -7,14 +7,31 @@ const bcrypt = require("bcryptjs");
 let messages = [];
 let typeMsg = "";
 
-const mainAdmin = (req, res) => {
+const mainAdmin = async (req, res) => {
   
   try {
-    res.render("admin/main", {
+
+    const usersList = await User.find({admin: false});
+
+    res.render("user/main", {
       messages: null,
       type: null,
-      user: req.session.user,
       logoutModal: false,
+      usersList,
+      admin: true
+    });
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+};
+
+const settingsPage = (req, res) => {
+  try {
+    res.render("user/settings", {
+      messages: null,
+      type: null,
+      deleteModal: false,
+      admin: true
     });
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -24,4 +41,5 @@ const mainAdmin = (req, res) => {
 
 module.exports = {
     mainAdmin,
+    settingsPage,
 };

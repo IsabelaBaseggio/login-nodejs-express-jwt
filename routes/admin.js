@@ -5,4 +5,6 @@ const auth = require("../controllers/AuthTokenController");
 
 routes.get("/:admin", auth, AdminController.mainAdmin);
 
+routes.get("/:admin/settings", auth, AdminController.settingsPage);
+
 module.exports = routes;

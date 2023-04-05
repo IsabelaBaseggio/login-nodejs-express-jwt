@@ -21,11 +21,23 @@
         </ul>
 
         <div id="userHome">
-          <p id="homeQuote">
-            "Through space the universe encompasses and swallows me up like an
-            atom; through thought I comprehend the world."
-            <span>Blaise Pascal</span>
-          </p>
+
+          <h2>Registered users</h2>
+
+          <ul id="usersList">
+            <% usersList.forEach((userData) => { %>
+
+              <div>
+                <ul id="userData">
+                  <li><%= userData.firstName %> <%userData.lastName %></li>
+                  <li><%= userData.email %></li>
+                </ul>
+                <a href="" class="btnDelete"><i class="material-icons">delete</i></a>
+              </div>
+              
+
+            <% }) %>
+          </ul>
         </div>
       </div>
     </header>
