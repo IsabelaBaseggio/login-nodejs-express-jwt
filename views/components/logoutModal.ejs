@@ -2,12 +2,22 @@
     <div id="card">
       <div id="head">
         <h2>Logout</h2>
-  
-        <a
+
+        <% if(admin) { %>
+          <a
+          id="close"
+          href="/admin/<%= user.firstName %><%= user.lastName %>"
+          ><i class="material-icons">close</i></a
+        >
+        <% } else { %>
+          <a
           id="close"
           href="/user/<%= user.firstName %><%= user.lastName %>"
           ><i class="material-icons">close</i></a
         >
+        <% } %>
+  
+        
   
   
       </div>
@@ -15,11 +25,22 @@
   
       <p>Do you really want to log out?</p>
       <div id="btns">
-        <a
+
+        <% if(admin) { %>
+          <a
           id="btnNot"
-          href="/user/<%= user.firstName %><%= user.lastName %>s"
+          href="/admin/<%= user.firstName %><%= user.lastName %>"
           >No</a
         >
+        <% } else { %>
+          <a
+          id="btnNot"
+          href="/user/<%= user.firstName %><%= user.lastName %>"
+          >No</a
+        >
+        <% } %>
+
+        
         <a id="btnYes" href="/user/<%= user.firstName %><%= user.lastName %>/logoutAccount">Yes </a>
       </div>
     </div>

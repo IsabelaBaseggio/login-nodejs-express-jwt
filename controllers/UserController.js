@@ -7,7 +7,7 @@ const passport = require("passport");
 
 let messages = [];
 let typeMsg = "";
-let admin = false;
+let text = ""
 
 const mainUser = (req, res) => {
   try {
@@ -15,7 +15,6 @@ const mainUser = (req, res) => {
       messages: null,
       type: null,
       user: req.session.user,
-      logoutModal: false,
       admin: false,
     });
   } catch (err) {
@@ -29,6 +28,7 @@ const settingsPage = (req, res) => {
       messages: null,
       type: null,
       user: req.session.user,
+      logoutModal: false,
       deleteModal: false,
       admin: false,
     });
@@ -155,21 +155,13 @@ const deleteConfirm = (req, res) => {
             values: null,
           });
         } else {
-          if(user.admin){
-
-            admin = true;
-
-          } else {
-
-            admin = false;
-
-          }
           res.render("user/settings", {
             messages: null,
             type: null,
             user: req.session.user,
+            logoutModal: false,
             deleteModal: true,
-            admin
+            admin: false
           });
         }
       } catch (err) {
@@ -184,7 +176,7 @@ const deleteConfirm = (req, res) => {
 const deleteAccount = async (req, res) => {
   try {
     await User.deleteOne({ _id: req.params.id });
-    req.flash("success_msg", { text: "User account successfully deleted" });
+    req.flash("success_msg", { text: "Account successfully deleted" });
     res.redirect("/");
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -193,22 +185,13 @@ const deleteAccount = async (req, res) => {
 
 const logoutConfirm = (req, res) => {
   try {
-    if(user.admin){
-
-      admin = true;
-
-    } else {
-
-      admin = false;
-
-    }
-    res.render("user/main", {
+    res.render("user/settings", {
       messages: null,
       type: null,
       user: req.session.user,
       logoutModal: true,
-      user: false,
-      admin
+      deleteModal: false,
+      admin: false
     });
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -221,7 +204,7 @@ const logoutAccount = (req, res, next) => {
       return next(err);
     }
 
-    req.flash("success_msg", { text: "User successfully logged out" });
+    req.flash("success_msg", { text: "Account successfully logged out"});
     res.redirect("/");
   });
 };

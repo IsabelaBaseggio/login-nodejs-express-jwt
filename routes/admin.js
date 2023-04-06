@@ -1,10 +1,15 @@
 const routes = require("express").Router();
 const { Router } = require("express");
 const AdminController = require("../controllers/AdminController");
-const auth = require("../controllers/AuthTokenController");
+const authToken = require("../controllers/AuthTokenController");
+const authAdmin = require("../controllers/AuthAdminController");
 
-routes.get("/:admin", auth, AdminController.mainAdmin);
+routes.get("/:admin", authToken, authAdmin, AdminController.mainAdmin);
 
-routes.get("/:admin/settings", auth, AdminController.settingsPage);
+routes.get("/:admin/settings", authToken, authAdmin, AdminController.settingsPage);
+
+routes.get("/:admin/deleteConfirm", authToken, authAdmin, AdminController.deleteConfirm);
+
+routes.get("/:admin/logout", authToken, authAdmin, AdminController.logoutConfirm);
 
 module.exports = routes;

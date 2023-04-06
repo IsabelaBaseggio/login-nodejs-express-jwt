@@ -35,7 +35,7 @@
   
                 <div>
                   <ul id="userData">
-                    <li><%= userData.firstName %> <%userData.lastName %></li>
+                    <li><%= userData.firstName %> <%= userData.lastName %></li>
                     <li><%= userData.email %></li>
                   </ul>
                   <a href="" class="btnDelete"><i class="material-icons">delete</i></a>
@@ -58,10 +58,6 @@
     <section id="icon">
       <div id="iconUser"></div>
     </section>
-
-    <% if(logoutModal) { %>
-      <%- include('../components/logoutModal', {id: user.id }) %>
-    <% } %>
 
     <% if(success_msg.length > 0) { %> <%- include('../components/message',
     {type: 'success', messages: success_msg, typeClass: 'alert'}) %> <% } %>
