@@ -11,7 +11,7 @@ const mainAdmin = async (req, res) => {
   
   try {
 
-    const usersList = await User.find({admin: false});
+    const usersList = await User.find({admin: false}).sort({firstName: 1});
 
     res.render("user/main", {
       messages: null,

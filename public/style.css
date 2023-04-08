@@ -236,6 +236,83 @@ div#dashboardUser div p#homeQuote span{
   color: #cc8545;
 }
 
+/* Header Admin Main */
+
+div#dashboardUser div#adminHome{
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: 20% 80%;
+}
+
+div#dashboardUser div#adminHome h2{
+  width: auto;
+  font-size: 1.5em;
+  font-weight: 200;
+}
+
+div#dashboardUser div#adminHome ul{
+  width: 100%;
+  height: 100%;
+  list-style: none;
+
+  overflow: auto;
+}
+
+div#adminHome ul div#userData{
+  display: grid;
+  grid-template-columns: 80% 20%;
+  place-items: center;
+  width: 100%;
+
+}
+
+div#adminHome ul div#userData li{
+
+  font-size: 1em;
+  font-weight: 300;
+
+  padding: 3px;
+
+}
+
+div#adminHome ul div#userData li#name{
+
+  text-decoration: underline;
+  text-decoration-color: #cc8545;
+
+}
+
+div#adminHome ul div#userData li#email{
+
+  color: #3f3d56d2;
+
+}
+
+div#adminHome ul div#userData a{
+
+  color: #ff6584;
+
+}
+
+ul::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	background-color: #fff;
+}
+
+ul::-webkit-scrollbar
+{
+	width: 4px;
+	background-color: #fff;
+}
+
+ul::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #3f3d5685;
+}
+
 /* Header User Settings */
 
 div#dashboardUser ul#navbar{
@@ -531,6 +608,9 @@ section.message-alert p{
 
   /* width: 90%; */
 }
+
+
+/* Login Page */
 
 form::-webkit-scrollbar-track
 {

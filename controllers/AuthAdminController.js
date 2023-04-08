@@ -1,8 +1,6 @@
 module.exports = function (req, res, next) {
 
-    const admin = req.session.user.admin
-
-    console.log(admin);
+    const admin = req.session.user.admin;
 
     if(!admin){
 
@@ -12,8 +10,6 @@ module.exports = function (req, res, next) {
     }
 
     try {
-
-        console.log("Passou aqui");
         
         next();
 
