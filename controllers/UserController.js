@@ -7,7 +7,6 @@ const passport = require("passport");
 
 let messages = [];
 let typeMsg = "";
-let text = ""
 
 const mainUser = (req, res) => {
   try {
@@ -48,8 +47,6 @@ const updatingUser = async (req, res) => {
     let stringEmail = /\S+@\S+\.\S+/;
     return stringEmail.test(email);
   }
-
-  console.log(req.body.userId);
 
   User.findOne({ _id: req.body.userId }).then((user) => {
     if (!user) {
@@ -143,7 +140,6 @@ const updatingUser = async (req, res) => {
 };
 
 const deleteConfirm = (req, res) => {
-  try {
     User.findOne({ _id: req.body.userId }).then((user) => {
       try {
         if (!user) {
@@ -168,9 +164,6 @@ const deleteConfirm = (req, res) => {
         res.status(500).send({ error: err.message });
       }
     });
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
 };
 
 const deleteAccount = async (req, res) => {
@@ -199,14 +192,19 @@ const logoutConfirm = (req, res) => {
 };
 
 const logoutAccount = (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
+  try {
+    req.logout((err) => {
+      if (err) {
+        return next(err);
+      }
+  
+      req.flash("success_msg", { text: "Account successfully logged out"});
+      res.redirect("/");
+    });
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
 
-    req.flash("success_msg", { text: "Account successfully logged out"});
-    res.redirect("/");
-  });
 };
 
 module.exports = {

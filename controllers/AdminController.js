@@ -13,6 +13,8 @@ const mainAdmin = async (req, res) => {
 
     const usersList = await User.find({admin: false}).sort({firstName: 1});
 
+    console.log(usersList);
+
     res.render("user/main", {
       messages: null,
       type: null,
@@ -84,10 +86,54 @@ const logoutConfirm = (req, res) => {
   }
 };
 
+const deleteUserConfirm = (req, res) => {
+
+  User.findOne({ _id: req.params.id }).then((user) => {
+    try {
+      if (!user) {
+        messages.push({ text: "User not found" });
+        typeMsg = "danger";
+        res.render("main/login", {
+          messages: messages,
+          type: typeMsg,
+          values: null,
+        });
+      } else {
+        res.render("user/settings", {
+          messages: null,
+          type: null,
+          user: user,
+          logoutModal: false,
+          deleteModal: true,
+          admin: req.session.user
+        });
+      }
+    } catch (err) {
+      res.status(500).send({ error: err.message });
+    }
+  });
+
+}
+
+const deleteUserAccount = async (req, res) => {
+  try {
+    await User.deleteOne({ _id: req.params.id });
+
+    let userName = req.session.firstName + req.session.lastName;
+
+    req.flash("success_msg", { text: "User account successfully deleted" });
+    res.redirect(`/admin/${userName}`);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+};
+
 
 module.exports = {
     mainAdmin,
     settingsPage,
     deleteConfirm,
-    logoutConfirm
+    logoutConfirm,
+    deleteUserConfirm,
+    deleteUserAccount
 };

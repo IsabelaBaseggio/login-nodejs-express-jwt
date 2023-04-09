@@ -31,6 +31,8 @@
             <div id="adminHome">
               <h2>Registered users</h2>
 
+              <% if(usersList.length > 0) { %>
+
               <ul>
                 <% usersList.forEach((userData) => { %>
     
@@ -39,11 +41,15 @@
                       <li id="name"><%= userData.firstName %> <%= userData.lastName %></li>
                       <li id="email"><%= userData.email %></li>
                     </ul>
-                    <a href="" class="btnDelete"><i class="material-icons">delete</i></a>
+                    <a href="/admin/<%= user.firstName %><%= user.lastName %>/deleteUserConfirm/<%= userData._id %>" class="btnDelete"><i class="material-icons">delete</i></a>
                   </div>
 
                   <% }) %>
                 </ul>
+
+               <% } else { %> 
+                <p>There are no registered users</p>
+                <% } %>
 
             </div>
             
@@ -69,6 +75,7 @@
 
     <% if(success_msg.length > 0) { %> <%- include('../components/message',
     {type: 'success', messages: success_msg, typeClass: 'alert'}) %> <% } %>
+
 
     <script src="/script.js"></script>
   </body>

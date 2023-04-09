@@ -245,6 +245,14 @@ div#dashboardUser div#adminHome{
   grid-template-rows: 20% 80%;
 }
 
+div#adminHome p{
+  width: 100%;
+
+  text-align: center;
+  color: #3f3d56d2;
+
+}
+
 div#dashboardUser div#adminHome h2{
   width: auto;
   font-size: 1.5em;
