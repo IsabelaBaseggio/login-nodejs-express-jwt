@@ -41,7 +41,11 @@
       <% } %>
 
       <% if(admin) { %>
+        <% if(admin._id === user._id) { %>
         <a id="btnYes" href="/admin/<%= admin.firstName %><%= admin.lastName %>/<%= user._id %>/deleteUserAccount">Yes </a>
+        <% } else { %>
+          <a id="btnYes" href="/user/<%= user.firstName %><%= user.lastName %>/<%= user._id %>/deleteAccount">Yes </a>
+          <% } %>
       <% } else { %>
         <a id="btnYes" href="/user/<%= user.firstName %><%= user.lastName %>/<%= user._id %>/deleteAccount">Yes </a>
       <% } %>

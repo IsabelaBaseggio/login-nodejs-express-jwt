@@ -14,6 +14,6 @@ routes.get("/:admin/logout", authToken, authAdmin, AdminController.logoutConfirm
 
 routes.get("/:admin/deleteUserConfirm/:id", authToken, authAdmin, AdminController.deleteUserConfirm);
 
-routes.get("/:user/:id/deleteUserAccount", authToken, authAdmin, AdminController.deleteUserAccount);
+routes.get("/:admin/:id/deleteUserAccount", authToken, authAdmin, AdminController.deleteUserAccount);
 
 module.exports = routes;

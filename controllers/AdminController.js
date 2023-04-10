@@ -41,7 +41,6 @@ const settingsPage = (req, res) => {
 };
 
 const deleteConfirm = (req, res) => {
-  try {
     User.findOne({ _id: req.body.userId }).then((user) => {
       try {
         if (!user) {
@@ -66,9 +65,6 @@ const deleteConfirm = (req, res) => {
         res.status(500).send({ error: err.message });
       }
     });
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
 };
 
 const logoutConfirm = (req, res) => {
@@ -119,10 +115,8 @@ const deleteUserAccount = async (req, res) => {
   try {
     await User.deleteOne({ _id: req.params.id });
 
-    let userName = req.session.firstName + req.session.lastName;
-
     req.flash("success_msg", { text: "User account successfully deleted" });
-    res.redirect(`/admin/${userName}`);
+    res.redirect(`/admin/${req.params.admin}`);
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
