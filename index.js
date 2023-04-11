@@ -14,7 +14,7 @@ require("./controllers/AuthUserController")(passport);
 const app = express();
 
 // Port Number
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 //Configs
 
