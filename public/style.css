@@ -175,21 +175,50 @@ header#headerUser div#dashboardUser{
   grid-template-rows: 20% 80%;
 }
 
-div#dashboardUser ul#navbar{
-  padding: 20px;
+div#dashboardUser div#navbar{
+  padding: 5px;
+
+  display: grid;
+  grid-template-columns: 70% 0% 20%;
+  justify-content: space-around;
+  align-content: center;
+
+}
+
+/* div#dashboardUser div#navbar div.toggle{
+
+  display: none;
+
+} */
+
+div#dashboardUser div#navbar h1{
+  width: 100%;
+  padding-left: 10px;
+
+  font-size: 1.5em;
+  font-weight: 100;
+
+  text-decoration: underline;
+  text-decoration-color: #cc8545;
+
+  text-align: justify;
+
+}
+
+div#dashboardUser div#navbar ul{
+  padding-right: 10px;
   list-style: none;
-  border-bottom: 1px solid #adb5bd;
 
   width: 100%;
   height: auto;
 
   display: grid;
-  grid-template-columns: 70% 10% 10%; 
-  justify-content: space-between;
+  grid-template-columns: 60% 40%; 
+  justify-content: space-around;
   align-content: center;
 }
 
-div#dashboardUser ul#navbar li#userName a{
+div#dashboardUser div#navbar ul li#userName a{
   font-size: 1.5em;
   font-weight: 100;
 
@@ -198,22 +227,20 @@ div#dashboardUser ul#navbar li#userName a{
 }
 
 
-div#dashboardUser ul#navbar li a{
+div#dashboardUser div#navbar ul li a{
   font-size: 1em;
   font-weight: 300;
 
   color: #000;
 }
 
-div#dashboardUser ul#navbar li a#logout{
+div#dashboardUser div#navbar ul li a#logout{
   color: #ff6584;
 }
 
 div#dashboardUser div{
   border-radius: 0 0 20px 20px;
-
-  padding: 20px;
-
+  
  display: grid;
  place-items: center;
 }
@@ -323,7 +350,7 @@ ul::-webkit-scrollbar-thumb
 
 /* Header User Settings */
 
-div#dashboardUser ul#navbar{
+div#dashboardUser div#navbar{
 
   align-items: center;
 
@@ -703,4 +730,87 @@ div div#refRegisterLogin span{
 
 div div#refRegisterLogin a{
   color: #cc8545;
+}
+
+@media (max-width: 1024px){
+
+  body{
+
+    display: block;
+
+  }
+
+  header#headerUser{
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 0;
+
+  }
+
+  div#dashboardUser div#navbar h1{
+
+    width: 100%;
+    padding: 20px;
+
+  }
+ 
+  div#dashboardUser div#navbar #menu{
+
+    display: none;
+
+  }
+
+  .toggle{
+    position: relative;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background: url("../images/menu.PNG");
+    background-size: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 11;
+
+  }
+
+  .toggle.active{
+    position: fixed;
+    background: url("../images/close.PNG");
+    background-size: 25px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  div#dashboardUser div#navbar #menu.navigation.active{
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: white;
+    z-index: 10;
+  }
+
+  div#dashboardUser div#navbar #menu li a{
+    font-size: 1.5em;
+    padding: 15px;
+    margin: 5px 0;
+  }
+
+  div#dashboardUser div#settings{
+    width: 100%;
+    height: 100%;
+  
+    display: grid;
+    grid-template-columns: none;
+    grid-auto-flow: row;
+  
+  }
+
 }

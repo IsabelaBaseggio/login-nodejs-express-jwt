@@ -20,18 +20,27 @@
 
     <header id="headerUser">
       <div id="dashboardUser">
-        <ul id="navbar" class="navbarSettings">
+        <div  id="navbar">
           <% if(admin) { %>
-          <li id="userName"><a href="/admin/<%= user.firstName %><%= user.lastName %>">ADMIN <%= user.firstName %> <%= user.lastName %></a></li>
-          <li><a href="/admin/<%= user.firstName %><%= user.lastName %>">Home</a></li>
-          <li><a href="/admin/<%= user.firstName %><%= user.lastName %>/logout" id="logout">Logout</a></li>
-          <% } else { %>
-          <li id="userName"><a href="/user/<%= user.firstName %><%= user.lastName %>"><%= user.firstName %> <%= user.lastName %></a></li>
-          <li><a href="/user/<%= user.firstName %><%= user.lastName %>">Home</a></li>
-          <li><a href="/user/<%= user.firstName %><%= user.lastName %>/logout" id="logout">Logout</a></li>
+            <h1><a id="userName" href="/admin/<%= user.firstName %><%= user.lastName %>">ADMIN <%= user.firstName %> <%= user.lastName %></a></h1>
+            <% } else { %>
+              <h1><a id="userName" href="/user/<%= user.firstName %><%= user.lastName %>"><%= user.firstName %> <%= user.lastName %></a></h1>
+            
           <% } %>
-
-        </ul>
+  
+          <div class="toggle" onclick="toggleMenu()"></div>
+            <ul id="menu" class="navigation">
+              <% if(admin) {%>
+              
+                <li><a href="/admin/<%= user.firstName %><%= user.lastName %>">Home</a></li>
+              <li><a href="/admin/<%= user.firstName %><%= user.lastName %>/logout" id="logout">Logout</a></li>
+              <% } else { %>
+              
+              <li><a href="/user/<%= user.firstName %><%= user.lastName %>">Home</a></li>
+              <li><a href="/user/<%= user.firstName %><%= user.lastName %>/logout" id="logout">Logout</a></li>
+              <% } %> 
+            </ul>
+        </div>
 
         <div id="settings">
           <div id="update">
