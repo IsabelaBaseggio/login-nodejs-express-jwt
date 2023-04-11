@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Login System</title>
+  </head>
+  <body>
+    <header id="headerUser">
+      <div id="dashboardUser">
+        <div  id="navbar">
+          <% if(admin) { %>
+            <h1><a id="userName" href="/admin/<%= user.firstName %><%= user.lastName %>">ADMIN <%= user.firstName %> <%= user.lastName %></a></h1>
+            <% } else { %>
+              <h1><a id="userName" href="/user/<%= user.firstName %><%= user.lastName %>"><%= user.firstName %> <%= user.lastName %></a></h1>
+            
+          <% } %>
+  
+          <div class="toggle" onclick="toggleMenu()"></div>
+            <ul id="menu" class="navigation">
+              <% if(admin) {%>
+              
+              <li><a href="/admin/<%= user.firstName %><%= user.lastName %>/settings">Settings</a></li>
+              <li><a href="/admin/<%= user.firstName %><%= user.lastName %>/logout" id="logout">Logout</a></li>
+              <% } else { %>
+              
+              <li><a href="/user/<%= user.firstName %><%= user.lastName %>/settings">Settings</a></li>
+              <li><a href="/user/<%= user.firstName %><%= user.lastName %>/logout" id="logout">Logout</a></li>
+              <% } %> 
+            </ul>
+        </div>
+        
+
+        
+          <% if(admin) { %>
+            <div id="adminHome">
+              <h2>Registered users</h2>
+
+              <% if(usersList.length > 0) { %>
+
+              <ul>
+                <% usersList.forEach((userData) => { %>
+    
+                  <div id="userData">
+                    <ul >
+                      <li id="name"><%= userData.firstName %> <%= userData.lastName %></li>
+                      <li id="email"><%= userData.email %></li>
+                    </ul>
+                    <a href="/admin/<%= user.firstName %><%= user.lastName %>/deleteUserConfirm/<%= userData._id %>" class="btnDelete"><i class="material-icons">delete</i></a>
+                  </div>
+
+                  <% }) %>
+                </ul>
+
+               <% } else { %> 
+                <p>There are no registered users</p>
+                <% } %>
+
+            </div>
+            
+                
+  
+
+          <% } else { %>  
+            <div id="userHome">
+          <p id="homeQuote">
+            "Through space the universe encompasses and swallows me up like an
+            atom; through thought I comprehend the world."
+            <span>Blaise Pascal</span>
+          </p>
+        </div>
+          <% } %>
+        
+      </div>
+    </header>
+
+    <section id="icon">
+      <div id="iconUser"></div>
+    </section>
+
+    <% if(success_msg.length > 0) { %> <%- include('../components/message',
+    {type: 'success', messages: success_msg, typeClass: 'alert'}) %> <% } %>
+
+
+    <script src="/script.js"></script>
+  </body>
+</html>

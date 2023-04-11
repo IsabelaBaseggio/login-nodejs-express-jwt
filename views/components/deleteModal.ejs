@@ -1,0 +1,58 @@
+<section id="modal">
+  <div id="card">
+    <div id="head">
+      <h2>Confirm delete account</h2>
+
+      <% if(admin) { %>
+        <a
+        id="close"
+        href="/admin/<%= admin.firstName %><%= admin.lastName %>/settings"
+        ><i class="material-icons">close</i></a
+      >
+      <% } else { %>
+        <a
+        id="close"
+        href="/user/<%= user.firstName %><%= user.lastName %>"
+        ><i class="material-icons">close</i></a
+      >
+      <% } %>
+
+      
+
+
+    </div>
+    <hr />
+
+    <p>Do you really want to delete your account?</p>
+    <div id="btns">
+
+      <% if(admin) { %>
+        <a
+        id="btnNot"
+        href="/admin/<%= admin.firstName %><%= admin.lastName %>"
+        >No</a
+      >
+      <% } else { %>
+        <a
+        id="btnNot"
+        href="/user/<%= user.firstName %><%= user.lastName %>"
+        >No</a
+      >
+      <% } %>
+
+      <% if(admin) { %>
+        <% if(admin._id === user._id) { %>
+        <a id="btnYes" href="/admin/<%= admin.firstName %><%= admin.lastName %>/<%= user._id %>/deleteUserAccount">Yes </a>
+        <% } else { %>
+          <a id="btnYes" href="/user/<%= user.firstName %><%= user.lastName %>/<%= user._id %>/deleteAccount">Yes </a>
+          <% } %>
+      <% } else { %>
+        <a id="btnYes" href="/user/<%= user.firstName %><%= user.lastName %>/<%= user._id %>/deleteAccount">Yes </a>
+      <% } %>
+      
+      
+
+      
+    </div>
+  </div>
+</section>

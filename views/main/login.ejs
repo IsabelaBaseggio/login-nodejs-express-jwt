@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Login System</title>
+  </head>
+  <body>
+    <section id="icon">
+      <div id="iconLogin"></div>
+    </section>
+
+    <header id="headerRegister">
+      <h1><a href="/">Login System</a></h1>
+
+      <div>
+        <div id="divForm">
+          <h2>Sign In</h2>
+          <form action="/login" method="post">
+            <% if(messages) { %> <%- include('../components/message', {type:
+            type, messages: messages, typeClass: 'form'}) %> <% } %>
+
+            <% if(success_msg.length > 0) { %> <%- include('../components/message',
+            {type: 'success', messages: success_msg, typeClass: 'form'}) %> <% } %> 
+            
+            <% if(error_msg.length > 0) { %> <%-
+            include('../components/message', {type: 'danger', messages:
+            error_msg, typeClass: 'alert'}) %> <% } %> <% if(values) {%>
+            <label for="email">Email</label>
+            <input
+              type="text"
+              name="email"
+              id="email"
+              value="<%= values.email %>"
+            />
+
+            <% } else { %>
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" />
+            <% } %>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" />
+            <button type="submit">Sign in</button>
+            <a href="/reset">Forgot password?</a>
+          </form>
+        </div>
+
+        <div id="refRegisterLogin">
+          <span>Not yet registered? </span>
+          <a href="/register">Sign Up</a>
+        </div>
+      </div>
+    </header>
+
+    <script src="/script.js"></script>
+  </body>
+</html>

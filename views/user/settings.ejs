@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Login System</title>
+  </head>
+  <body>
+    <% if(error_msg.length > 0) { %> <%- include('../components/message', {type:
+      'danger', messages: error_msg, typeClass: 'alert'}) %> <% } %>
+      <% if(success_msg.length > 0) { %> <%- include('../components/message', {type:
+        'success', messages: success_msg, typeClass: 'alert'}) %> <% } %>
+
+    <header id="headerUser">
+      <div id="dashboardUser">
+        <div  id="navbar">
+          <% if(admin) { %>
+            <h1><a id="userName" href="/admin/<%= user.firstName %><%= user.lastName %>">ADMIN <%= user.firstName %> <%= user.lastName %></a></h1>
+            <% } else { %>
+              <h1><a id="userName" href="/user/<%= user.firstName %><%= user.lastName %>"><%= user.firstName %> <%= user.lastName %></a></h1>
+            
+          <% } %>
+  
+          <div class="toggle" onclick="toggleMenu()"></div>
+            <ul id="menu" class="navigation">
+              <% if(admin) {%>
+              
+                <li><a href="/admin/<%= user.firstName %><%= user.lastName %>">Home</a></li>
+              <li><a href="/admin/<%= user.firstName %><%= user.lastName %>/logout" id="logout">Logout</a></li>
+              <% } else { %>
+              
+              <li><a href="/user/<%= user.firstName %><%= user.lastName %>">Home</a></li>
+              <li><a href="/user/<%= user.firstName %><%= user.lastName %>/logout" id="logout">Logout</a></li>
+              <% } %> 
+            </ul>
+        </div>
+
+        <div id="settings">
+          <div id="update">
+            <h2>Update</h2>
+
+            <form action="/user/<%= user.firstName %><%= user.lastName %>/update" method="post">
+              <input type="hidden" name="userId" value="<%= user._id %>" />
+              <label for="firstName">First Name</label>
+              <input type="text" name="firstName" id="firstName" 
+              value=" <%= user.firstName %>"/>
+              <label for="laststName">Last Name</label>
+              <input type="text" name="lastName" id="lastName"
+              value="<%= user.lastName %>"/>
+              <label for="email">Email</label>
+              <input type="text" name="email" id="email" 
+              value="<%= user.email %>"/>
+              <label for="password">Password</label>
+              <input type="password" name="password" id="password" />
+              <button type="submit">Save</button>
+            </form>
+          </div>
+
+          <div id="delete">
+            <p>or...</p>
+            <% if(admin) { %>
+            <form action="/admin/<%= user.firstName %><%= user.lastName %>/deleteConfirm" method="post">
+            <% } else { %>
+            <form action="/user/<%= user.firstName %><%= user.lastName %>/deleteConfirm" method="post">
+            <% } %>
+              <input type="hidden" name="userId" value="<%= user._id %>" />
+              <button type="submit">Delete account</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="icon">
+      <div id="iconUser"></div>
+    </section>
+
+    <% if(deleteModal) { %>
+      <%- include('../components/deleteModal') %>
+    <% } %>
+
+    <% if(logoutModal) { %>
+      <%- include('../components/logoutModal', {id: user.id }) %>
+    <% } %>
+
+
+    <script src="/script.js"></script>
+  </body>
+</html>
