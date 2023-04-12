@@ -21,9 +21,9 @@ const port = process.env.PORT || 3000;
 // Session, Cookies & Flash
 app.use(session({
   cookie:{ maxAge: 2628000000},
-  store: new (require("express-sessions"))({storage: "mongodb"}),
   secret: process.env.SECRET,
-  resave: false,
+  resave: true,
+  saveUninitialized: false
 }));
 
 app.use(passport.initialize());
