@@ -5,6 +5,7 @@ const mainRoute = require("./routes/main");
 const userRoute = require("./routes/user");
 const adminRoute = require("./routes/admin");
 const session = require('express-session');
+const MemoryStore = require("memorystore")(session)
 const flash = require('connect-flash');
 const connectDB = require("./database/db");
 const passport = require("passport");
@@ -20,9 +21,12 @@ const port = process.env.PORT || 3000;
 
 // Session, Cookies & Flash
 app.use(session({
+  cookie:{ maxAge: 86400000},
+  store: new MemoryStore({
+    checkPeriod: 86400000
+  }),
   secret: process.env.SECRET,
-  resave: true,
-  saveUninitialized: true
+  resave: false,
 }));
 
 app.use(passport.initialize());
