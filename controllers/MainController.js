@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 
 let messages = [];
 let typeMsg = "";
-let port = process.env.PORT;
+let port = "login-nodejs-express-jwt-production.up.railway.app";
 
 const mainIndex = (req, res) => {
   try {
