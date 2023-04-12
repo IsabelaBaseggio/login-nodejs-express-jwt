@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 
 let messages = [];
 let typeMsg = "";
-let port = process.env.PORT || "localhost:3000";
+let port = process.env.PORT;
 
 const mainIndex = (req, res) => {
   try {
