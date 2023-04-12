@@ -4,6 +4,7 @@ const path = require("path");
 const mainRoute = require("./routes/main");
 const userRoute = require("./routes/user");
 const adminRoute = require("./routes/admin");
+const mongoose = require("mongoose")
 const session = require('express-session');
 const MemoryStore = require("memorystore")(session)
 const flash = require('connect-flash');
@@ -21,10 +22,8 @@ const port = process.env.PORT || 3000;
 
 // Session, Cookies & Flash
 app.use(session({
-  cookie:{ maxAge: 86400000},
-  store: new MemoryStore({
-    checkPeriod: 86400000
-  }),
+  cookie:{ maxAge: 2628000000},
+  store: new (require("express-sessions"))({storage: "mongodb"}),
   secret: process.env.SECRET,
   resave: false,
 }));
