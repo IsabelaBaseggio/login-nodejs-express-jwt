@@ -185,12 +185,6 @@ div#dashboardUser div#navbar{
 
 }
 
-/* div#dashboardUser div#navbar div.toggle{
-
-  display: none;
-
-} */
-
 div#dashboardUser div#navbar h1{
   width: 100%;
   padding-left: 10px;
@@ -289,6 +283,7 @@ div#dashboardUser div#adminHome h2{
 div#dashboardUser div#adminHome ul{
   width: 100%;
   height: 100%;
+  padding-left: 15px;
   list-style: none;
 
   overflow: auto;
