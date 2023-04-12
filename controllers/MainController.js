@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 
 let messages = [];
 let typeMsg = "";
+let port = process.env.PORT || "localhost:3000";
 
 const mainIndex = (req, res) => {
   try {
@@ -257,7 +258,7 @@ const createLinkResetPassword = (req, res) => {
             { expiresIn: 300 }
           );
           console.log(jwt.decode(tokenLink));
-          let link = `http://localhost:3000/reset/${user._id}/${tokenLink}`;
+          let link = `${port}/reset/${user._id}/${tokenLink}`;
 
           const transporter = nodemailer.createTransport({
             host: process.env.HOSTEMAIL,
