@@ -233,13 +233,14 @@ div#dashboardUser div#navbar ul li a#logout{
 }
 
 div#dashboardUser div{
-  border-radius: 0 0 20px 20px;
+
   
  display: grid;
  place-items: center;
 }
 
 div#dashboardUser div#userHome{
+  border-radius: 0 0 20px 20px;
   background-color: #3F3D56;
 }
 
@@ -726,6 +727,7 @@ div div#refRegisterLogin span{
 div div#refRegisterLogin a{
   color: #cc8545;
 }
+
 
 @media (max-width: 1024px){
 

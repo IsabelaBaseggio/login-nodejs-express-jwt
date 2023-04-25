@@ -4,6 +4,7 @@ module.exports = function (req, res, next) {
 
     const token = req.session.token;
 
+    // Confirming user token
     if(!token){
         req.flash("error_msg", { text: "Access Denied! User must be logged in to gain access." });
         res.redirect("/login");

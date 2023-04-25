@@ -11,6 +11,7 @@ const mainAdmin = async (req, res) => {
   
   try {
 
+    // Getting registered users's list
     const usersList = await User.find({admin: false}).sort({firstName: 1});
 
     console.log(usersList);
@@ -41,6 +42,8 @@ const settingsPage = (req, res) => {
 };
 
 const deleteConfirm = (req, res) => {
+
+  // Getting admin user by id to confirm delete
     User.findOne({ _id: req.body.userId }).then((user) => {
       try {
         if (!user) {
@@ -52,6 +55,7 @@ const deleteConfirm = (req, res) => {
             values: null,
           });
         } else {
+          // Rendering delete modal
           res.render("user/settings", {
             messages: null,
             type: null,
@@ -69,6 +73,7 @@ const deleteConfirm = (req, res) => {
 
 const logoutConfirm = (req, res) => {
   try {
+    // Rendering logout modal
     res.render("user/settings", {
       messages: null,
       type: null,
@@ -84,6 +89,7 @@ const logoutConfirm = (req, res) => {
 
 const deleteUserConfirm = (req, res) => {
 
+  // Getting user by id for admin to confirm delete
   User.findOne({ _id: req.params.id }).then((user) => {
     try {
       if (!user) {
@@ -95,6 +101,7 @@ const deleteUserConfirm = (req, res) => {
           values: null,
         });
       } else {
+        // Rendering delete modal
         res.render("user/settings", {
           messages: null,
           type: null,
@@ -107,12 +114,16 @@ const deleteUserConfirm = (req, res) => {
     } catch (err) {
       res.status(500).send({ error: err.message });
     }
+  }).catch((err) => {
+    res.status(500).send({ error: err.message });
   });
 
 }
 
 const deleteUserAccount = async (req, res) => {
   try {
+
+    // Admin deleting user by id
     await User.deleteOne({ _id: req.params.id });
 
     req.flash("success_msg", { text: "User account successfully deleted" });

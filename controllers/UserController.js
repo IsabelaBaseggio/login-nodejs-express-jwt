@@ -1,9 +1,7 @@
-const { type } = require("@hapi/joi/lib/extend");
 const mongoose = require("mongoose");
 require("../models/User");
 const User = mongoose.model("Users");
 const bcrypt = require("bcryptjs");
-const passport = require("passport");
 
 let messages = [];
 let typeMsg = "";
@@ -43,11 +41,14 @@ const updatingUser = async (req, res) => {
     lastName: req.body.lastName,
     email: req.body.email,
   };
+
+  // Validating email characters
   function validadeEmail(email) {
     let stringEmail = /\S+@\S+\.\S+/;
     return stringEmail.test(email);
   }
 
+  // Getting user by id
   User.findOne({ _id: req.body.userId }).then((user) => {
     if (!user) {
       try {
@@ -107,6 +108,8 @@ const updatingUser = async (req, res) => {
           res.status(500).send({ error: err.message });
         }
       } else {
+        // Saving new user data
+
         user.firstName = values.firstName;
         user.lastName = values.lastName;
         user.email = values.email;
@@ -136,10 +139,14 @@ const updatingUser = async (req, res) => {
           });
       }
     }
+  }).catch((err) => {
+    res.status(500).send({ error: err.message });
   });
 };
 
 const deleteConfirm = (req, res) => {
+
+  // Getting user by id
     User.findOne({ _id: req.body.userId }).then((user) => {
       try {
         if (!user) {
@@ -151,6 +158,7 @@ const deleteConfirm = (req, res) => {
             values: null,
           });
         } else {
+          // Rendering delete modal
           res.render("user/settings", {
             messages: null,
             type: null,
@@ -163,11 +171,15 @@ const deleteConfirm = (req, res) => {
       } catch (err) {
         res.status(500).send({ error: err.message });
       }
+    }).catch((err) => {
+
+      res.status(500).send({ error: err.message });
     });
 };
 
 const deleteAccount = async (req, res) => {
   try {
+    // Deleting user by id
     await User.deleteOne({ _id: req.params.id });
     req.flash("success_msg", { text: "Account successfully deleted" });
     res.redirect("/");
@@ -178,6 +190,7 @@ const deleteAccount = async (req, res) => {
 
 const logoutConfirm = (req, res) => {
   try {
+    // Redering logout modal
     res.render("user/settings", {
       messages: null,
       type: null,
@@ -193,6 +206,7 @@ const logoutConfirm = (req, res) => {
 
 const logoutAccount = (req, res, next) => {
   try {
+    // Loggin out user account
     req.logout((err) => {
       if (err) {
         return next(err);

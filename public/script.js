@@ -1,6 +1,7 @@
 const messageAlert = document.querySelector(".message-alert");
 const closeMessage = document.querySelector("#close-message");
 
+// message alert
 if (closeMessage) {
   closeMessage.addEventListener("click", () => {
     messageAlert.style.display = "none";
@@ -12,7 +13,7 @@ if (closeMessage) {
 }
 
 
-// toggle menu < 992px
+// toggle menu < 1024px
 
 function toggleMenu() {
 

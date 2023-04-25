@@ -16,7 +16,8 @@ const app = express();
 // Port Number
 const port = process.env.PORT || 3000;
 
-//Configs
+
+//CONFIGS
 
 // Session, Cookies & Flash
 app.use(session({
@@ -26,6 +27,8 @@ app.use(session({
   saveUninitialized: false
 }));
 
+
+// Passport
 app.use(passport.initialize());
 app.use(passport.session());
 

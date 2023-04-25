@@ -35,6 +35,7 @@ const registerUser = async (req, res) => {
     email: req.body.email,
   };
 
+  // Validating email characters
   function validadeEmail(email) {
     let stringEmail = /\S+@\S+\.\S+/;
     return stringEmail.test(email);
@@ -90,9 +91,9 @@ const registerUser = async (req, res) => {
       res.status(500).send({ error: err.message });
     }
   } else {
-    try {
-      // Check if email is already registered
-      User.findOne({ email: values.email }).then((user) => {
+    // Check if email is already registered
+    User.findOne({ email: values.email })
+      .then((user) => {
         if (user) {
           try {
             messages.push({ text: "Email Is Already Registered" });
@@ -121,7 +122,7 @@ const registerUser = async (req, res) => {
                 res.render("main/register", {
                   messages: messages,
                   type: typeMsg,
-                  values: null
+                  values: null,
                 });
               })
               .catch((err) => {
@@ -131,10 +132,10 @@ const registerUser = async (req, res) => {
             res.status(500).send({ error: err.message });
           }
         }
+      })
+      .catch((err) => {
+        res.status(500).send({ error: err.message });
       });
-    } catch (err) {
-      res.status(500).send({ error: err.message });
-    }
   }
 };
 
@@ -148,57 +149,52 @@ const loginPage = (req, res) => {
 
 const loginUser = (req, res) => {
   messages = [];
-    try {
-      // Check if email is already registered
-      User.findOne({ email: req.body.email }).then((user) => {
-        if (!user) {
-          try {
-            messages.push({ text: "Incorrect email or password" });
-            typeMsg = "danger";
-            res.render("main/login", {
-              messages: messages,
-              type: typeMsg,
-              values: null,
-            });
-          } catch (err) {
-            res.status(500).send({ error: err.message });
-          }
-        } else {
-              // User logged - session - token
-              let token = jwt.sign(
-                {
-                  user: {
-                    id: user._id,
-                    email: user.email,
-                  },
-                },
-                process.env.SECRET,
-                { expiresIn: 10800 }
-              );
 
-                let userName = user.firstName + user.lastName;
-
-                req.session.token = token;
-                req.session.user = user;
-
-                if(user.admin === true) {
-                
-                req.flash("success_msg", { text: "Admin user Logged" });
-                res.redirect(`admin/${userName}`);
-
-                } else {
-
-                  req.flash("success_msg", { text: "User Logged" });
-                  res.redirect(`user/${userName}`);
-
-                }
-                
+  // Check if email is registered
+  User.findOne({ email: req.body.email })
+    .then((user) => {
+      if (!user) {
+        try {
+          messages.push({ text: "Incorrect email or password" });
+          typeMsg = "danger";
+          res.render("main/login", {
+            messages: messages,
+            type: typeMsg,
+            values: null,
+          });
+        } catch (err) {
+          res.status(500).send({ error: err.message });
         }
-      });
-    } catch (err) {
+      } else {
+        // User logged - session - token
+        let token = jwt.sign(
+          {
+            user: {
+              id: user._id,
+              email: user.email,
+            },
+          },
+          process.env.SECRET,
+          { expiresIn: 10800 }
+        );
+
+        let userName = user.firstName + user.lastName;
+
+        req.session.token = token;
+        req.session.user = user;
+
+        if (user.admin === true) {
+          req.flash("success_msg", { text: "Admin user Logged" });
+          res.redirect(`admin/${userName}`);
+        } else {
+          req.flash("success_msg", { text: "User Logged" });
+          res.redirect(`user/${userName}`);
+        }
+      }
+    })
+    .catch((err) => {
       res.status(500).send({ error: err.message });
-    }
-  
+    });
 };
 
 const resetPasswordPage = (req, res) => {
@@ -235,9 +231,9 @@ const createLinkResetPassword = (req, res) => {
       res.status(500).send({ error: err.message });
     }
   } else {
-    try {
-      // Check if email is registered
-      User.findOne({ email: values.email }).then((user) => {
+    // Check if email is registered
+    User.findOne({ email: values.email })
+      .then((user) => {
         if (!user) {
           try {
             messages.push({ text: "Incorrect email address" });
@@ -251,6 +247,7 @@ const createLinkResetPassword = (req, res) => {
             res.status(500).send({ error: err.message });
           }
         } else {
+          // Creating password reset link with token
           let linksSecret = process.env.SECRET + user.password;
           let tokenLink = jwt.sign(
             { id: user._id, email: user.email },
@@ -260,6 +257,7 @@ const createLinkResetPassword = (req, res) => {
           console.log(jwt.decode(tokenLink));
           let link = `${port}/reset/${user._id}/${tokenLink}`;
 
+          // Sending link to user email
           const transporter = nodemailer.createTransport({
             host: process.env.HOSTEMAIL,
             service: "gmail",
@@ -293,16 +291,17 @@ const createLinkResetPassword = (req, res) => {
               res.status(500).send({ error: err.message });
             });
         }
+      })
+      .catch((err) => {
+        res.status(500).send({ error: err.message });
       });
-    } catch (err) {
-      res.status(500).send({ error: err.message });
-    }
   }
 };
 
 const resetLinkPage = (req, res) => {
-  try {
-    User.findOne({ id: req.params.id }).then((user) => {
+  // Getting user by id
+  User.findOne({ id: req.params.id })
+    .then((user) => {
       if (!user) {
         try {
           messages.push({ text: "User not found" });
@@ -336,17 +335,18 @@ const resetLinkPage = (req, res) => {
           res.redirect("/reset");
         }
       }
+    })
+    .catch((err) => {
+      res.status(500).send({ error: err.message });
     });
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
 };
 
 const resetingPassword = (req, res) => {
   messages = [];
 
-  try {
-    User.findById(req.params.id).then((user) => {
+  // Getting user by id
+  User.findById(req.params.id)
+    .then((user) => {
       if (!user) {
         try {
           messages.push({ text: "User not found" });
@@ -406,7 +406,7 @@ const resetingPassword = (req, res) => {
             // Encrypting password
             user.password = bcrypt.hashSync(req.body.password);
 
-            // Saving in DB
+            // Saving new password in DB
             user.save().then(() => {
               req.flash("success_msg", {
                 text: "Password successfully updated",
@@ -421,10 +421,10 @@ const resetingPassword = (req, res) => {
           res.redirect("/reset");
         }
       }
+    })
+    .catch((err) => {
+      res.status(500).send({ error: err.message });
     });
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
 };
 
 module.exports = {

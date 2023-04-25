@@ -3,12 +3,14 @@
 const localStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const { request } = require("express");
 require("../models/User");
 const User = mongoose.model("Users");
 const jwt = require("jsonwebtoken");
 
 module.exports = function (passport) {
+
+  // auth user
+
   passport.use(
     new localStrategy({ usernameField: "email",
      passReqToCallback: true }, // allows us to pass back the entire request to the callback
