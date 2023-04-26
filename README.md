@@ -2,7 +2,7 @@
 
 [README(english)](https://github.com/IsabelaBaseggio/login-nodejs-express-jwt/blob/main/README.md)
 
-#### Status: Finalizado
+#### Status: Done
 
 [![GitHub](https://img.shields.io/github/license/IsabelaBaseggio/login-nodejs-express-jwt)](https://github.com/IsabelaBaseggio/login-nodejs-express-jwt/blob/main/LICENSE)
 
@@ -58,38 +58,38 @@ Administrator user:
   <img src="" alt="task deleted web" style="width:49%;"/>
  </p>
 
-## Pré-requisitos
+## Prerequisites
 
-Você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+You will need to have the following tools installed on your machine:
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/);
 
-E um editor para trabalhar com o código, como: [VSCode](https://code.visualstudio.com/).
+And an editor to work with the code, such as: [VSCode](https://code.visualstudio.com/).
 
 ```bash
 
-# Clone este repositório
+# Clone this repository
 $ git clone <https://github.com/IsabelaBaseggio/login-nodejs-express-jwt>
 
-# No editor de texto abra o arquivo index.js e altere a variável port para:
+# In the text editor, open the index.js file and change the port variable to:
 const port = 3000;
 
-# Acesse a pasta do projeto no terminal/cmd
+# Access the project folder in the terminal/cmd
 $ cd login-nodejs-express-jwt
 
-# Vá para o arquivo index
+# Go to the index file
 $ cd index
 
-# Instale as dependências
+# Install the dependencies
 $ npm install bcryptjs@2.4.3 connect-flash@0.1.1 dotenv@16.0.3 ejs@3.1.8 express@4.18.2 express-session@1.17.3 jsonwebtoken@9.0.0 mongoose@6.7.3 nodemailer@6.8.0 passport@0.6.0 passport-local@1.0.0
 
-# Execute a aplicação em modo de desenvolvimento
+# Run the application in development mode
 $ npm run dev:server
 
-# O servidor iniciará na porta: 3000 - acesse <http://localhost:3000>
+# The server will start on port: 3000 - access <http://localhost:3000>
 
 ```
 
-## Técnicas e tecnologia utilizadas
+## Techniques and technology used
 
 - Padrão MVC
 
@@ -113,7 +113,7 @@ $ npm run dev:server
 - Passport-local v1.0.0
 
 
-## Autor
+## Author
 
 Isabela Ribeiro Baseggio
 
