@@ -68,19 +68,19 @@ E um editor para trabalhar com o código, como: [VSCode](https://code.visualstud
 ```bash
 
 # Clone este repositório
-$ git clone <https://github.com/IsabelaBaseggio/ToDoList>
+$ git clone <https://github.com/IsabelaBaseggio/login-nodejs-express-jwt>
 
 # No editor de texto abra o arquivo index.js e altere a variável port para:
 const port = 3000;
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd ToDoList
+$ cd login-nodejs-express-jwt
 
 # Vá para o arquivo index
 $ cd index
 
 # Instale as dependências
-$ npm install ejs@3.1.8 express@4.18.2 mongoose@6.7.0 dotenv@16.0.3
+$ npm install bcryptjs@2.4.3 connect-flash@0.1.1 dotenv@16.0.3 ejs@3.1.8 express@4.18.2 express-session@1.17.3 jsonwebtoken@9.0.0 mongoose@6.7.3 nodemailer@6.8.0 passport@0.6.0 passport-local@1.0.0
 
 # Execute a aplicação em modo de desenvolvimento
 $ npm run dev:server
@@ -99,11 +99,18 @@ $ npm run dev:server
 - Material Icons - Google Fonts
 
 ### Back end
-- Node.js v16.16.0
+- Node.js v8.11.0
 - Express v4.18.2
-- MongoDB v6.7.0
+- Express-session v1.17.3
+- MongoDB v6.7.3
 - Dotenv v16.0.3
-- EJS v 3.1.8
+- EJS v3.1.8
+- Bcryptjs v2.4.3
+- Connect-flash v0.1.1
+- JSON Web Token v9.0.0
+- Nodemailer v6.8.0
+- Passport v0.6.0
+- Passport-local v1.0.0
 
 
 ## Autor
