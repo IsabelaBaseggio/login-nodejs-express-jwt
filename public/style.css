@@ -728,6 +728,138 @@ div div#refRegisterLogin a{
   color: #cc8545;
 }
 
+/* Contacts Author */
+
+div#about {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  transition: all 0.3s ease-in-out;
+}
+
+div#about div.arrow {
+  background-color: #000000d0;
+  cursor: pointer;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  transition: all 0.3s ease-in-out;
+}
+
+div#about div.arrow:hover {
+  border-radius: 0 0 0 30px;
+}
+
+div.arrow div.arrowMood {
+  position: absolute;
+  border: #fff solid;
+  top: 17px;
+  left: 21px;
+  width: 15px;
+  height: 15px;
+  border-width: 0 2px 2px 0;
+  transform: rotate(135deg);
+  transition: all 0.4s ease-in-out;
+}
+
+div#about div.contacts {
+  display: none;
+}
+
+div#about.active {
+  position: absolute;
+  padding-bottom: 10px;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 350px;
+  background-color: #000000d0;
+  border-radius: 0 0 0 50px;
+  z-index: 9999;
+  transition: all 0.3s ease;
+}
+
+div#about div.arrow.active {
+  position: absolute;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  background-color: #00000000;
+}
+
+div.arrow div.arrowMood.active {
+  position: absolute;
+  border: #a7aacc solid;
+  top: 24px;
+  width: 15px;
+  height: 15px;
+  border-width: 0 2px 2px 0;
+  transform: rotate(-45deg);
+  transition: all 0.4s ease-in-out;
+}
+
+div.arrow div.arrowMood.active:hover {
+  border-color: #fff;
+}
+
+div#about div.contacts.active {
+  display: block;
+  position: absolute;
+  margin: 50px auto 0 auto;
+  width: 90%;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+div.contacts.active h4 {
+  color: #a7aacc;
+  padding: 10px;
+}
+
+div.contacts.active h4 span {
+  color: #fff;
+}
+
+div.contacts.active hr {
+  width: 90%;
+  margin: 0 auto;
+  border-color: #a7aacc;
+}
+
+div.contacts.active ul#links {
+  list-style-type: none;
+  margin-top: 10px;
+}
+
+ul#links li {
+  padding: 10px;
+}
+
+ul#links li a {
+  text-decoration: none;
+  color: #fff;
+}
+
+ul#links li a#github::before {
+  content: url("./images/github.svg");
+  margin: auto;
+  padding: 10px;
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+
+ul#links li a#linkedin::before {
+  content: url("./images/linkedin.svg");
+  margin: auto;
+  display: block;
+  padding: 10px;
+  width: 30px;
+  height: 30px;
+}
+
 
 @media (max-width: 1024px){
 

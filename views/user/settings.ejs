@@ -13,6 +13,9 @@
     <title>Login System</title>
   </head>
   <body>
+
+    <%- include('../components/aboutAuthor') %>
+
     <% if(error_msg.length > 0) { %> <%- include('../components/message', {type:
       'danger', messages: error_msg, typeClass: 'alert'}) %> <% } %>
       <% if(success_msg.length > 0) { %> <%- include('../components/message', {type:
