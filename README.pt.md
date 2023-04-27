@@ -34,28 +34,13 @@ Usuário do tipo Administrador
 ### Layout mobile
 
 <p float="left">
-  <img src="" alt="to do list home mobile"      style="width:24%;"/>
-  <img src="" alt="add task mobile"        style="width:24%;"/>
-  <img src="" alt="update task mobile" style="width:24%;"/>
-  <img src="" alt="updating task mobile" style="width:24%;"/>
-  <img src="" alt="task updated mobile"      style="width:24%;"/>
-  <img src="" alt="task checked mobile"        style="width:24%;"/>
-  <img src="" alt="confirming delete task mobile" style="width:24%;"/>
-  <img src="" alt="task deleted mobile" style="width:24%;"/>
-  
- </p>
+  <img src="https://github.com/IsabelaBaseggio/login-nodejs-express-jwt/blob/main/assets/loginSystemMobile.png" alt="login system home mobile"      style="width:24%;"/>
+   </p>
 
 ### Layout web
 
 <p float="left">
-  <img src="" alt="to do list home web" style="width:49%;"/>
-  <img src="" alt="add task web" style="width:49%;"/>
-  <img src="" alt="update task web" style="width:49%;"/>
-  <img src="" alt="updating task web" style="width:49%;"/>
-  <img src="" alt="task updated web" style="width:49%;"/>
-  <img src="" alt="task checked web" style="width:49%;"/>
-  <img src="" alt="confirming delete task web" style="width:49%;"/>
-  <img src="" alt="task deleted web" style="width:49%;"/>
+  <img src="https://github.com/IsabelaBaseggio/login-nodejs-express-jwt/blob/main/assets/loginSystemWeb.png" alt="login system home web" style="width:49%;"/>
  </p>
 
 ## Pré-requisitos
