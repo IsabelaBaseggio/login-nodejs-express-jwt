@@ -1,6 +1,6 @@
 # Login System
 
-[README(english)](https://github.com/IsabelaBaseggio/login-nodejs-express-jwt/blob/main/README.md)
+[README(portuguese)](https://github.com/IsabelaBaseggio/login-nodejs-express-jwt/blob/main/README.pt.md)
 
 #### Status: Done
 
