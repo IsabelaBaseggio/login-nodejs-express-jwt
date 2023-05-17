@@ -61,6 +61,6 @@ app.use("/user", express.json(), userRoute);
 app.use("/admin", express.json(), adminRoute);
 
 // Server
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Server running in ${port}`);
 });
