@@ -18,7 +18,7 @@ The software consists of a login system with the interaction of user registratio
 ### Functionalities
 
 
-All user types:
+All user types: `/user` `/admin`
 
 - `Functionality 1`: Register user.
 - `Functionality 2`: Authenticate user / login.
@@ -27,7 +27,7 @@ All user types:
 - `Functionality 5`: End user session / logout.
 - `Functionality 6`: Recover user account password.
 
-Administrator user:
+Administrator: `/admin`
 
 - `Functionality 7`: Delete registered user accounts in the system.
 
