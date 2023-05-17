@@ -18,7 +18,7 @@ O software consiste em um sistema de login, com a interação de cadastro, login
 ### Funcionalidades
 
 
-Todos os tipos de usuários
+Todos os tipos de usuários: `/user` `/admin`
 
 - `Funcionalidade 1`: Realizar cadastro de usuário.
 - `Funcionalidade 2`: Realizar autenticação do usuário / login.
@@ -27,7 +27,7 @@ Todos os tipos de usuários
 - `Funcionalidade 5`: Encerrar sessão do usuário / logout.
 - `Funcionalidade 6`: Recuperar senha da conta de usuário.
 
-Usuário do tipo Administrador
+Usuário do tipo Administrador: `/admin`
 
 - `Funcionalidade 7`: Excluir contas de usuários cadastrados no sistema.
 
