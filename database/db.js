@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 
-const connectDB = () => {
-  mongoose
+const connectDB = async () => {
+  try { 
+    const conn = await mongoose
     .connect(process.env.DB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    })
-    .then(() => console.log("MongoDB Atlas Connected"))
-    .catch((err) => console.log(err));
-};
+    });
+    console.log("MongoDB Atlas Connected");
+} catch(err) {
+  console.log(err);
+}
+}
 
 module.exports = connectDB;
