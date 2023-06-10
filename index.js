@@ -60,7 +60,7 @@ app.use("/admin", express.json(), adminRoute);
 // Mongoose - DB Connection
 connectDB().then(() => {
   // Server
-  app.listen(port, "0.0.0.0", () => {
+  app.listen(port, () => {
     console.log(`Server running in ${port}`);
   });
 });
