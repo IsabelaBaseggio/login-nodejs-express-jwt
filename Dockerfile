@@ -7,8 +7,6 @@ WORKDIR /login-nodejs-express-jwt
 
 COPY . .
 
-ENV PORT = "https://loginnodejsexpressjwt-isabelabaseggio7.b4a.run/"
-
 EXPOSE 8080
 
 CMD ["node", "index.js"]
