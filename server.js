@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
+const https = require('https');
 const mainRoute = require("./routes/main");
 const userRoute = require("./routes/user");
 const adminRoute = require("./routes/admin");
@@ -12,6 +13,7 @@ require("./controllers/AuthUserController")(passport);
 
 // Init Express App
 const app = express();
+const httpsServer = https.createServer(app);
 
 // Port Number
 const port = process.env.PORT || 3000;
@@ -60,7 +62,7 @@ app.use("/admin", express.json(), adminRoute);
 // Mongoose - DB Connection
 connectDB().then(() => {
   // Server
-  app.listen(port, () => {
+  httpsServer.listen(port, () => {
     console.log(`Server running in ${port}`);
   });
 });
