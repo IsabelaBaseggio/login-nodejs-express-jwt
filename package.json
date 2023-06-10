@@ -2,9 +2,8 @@
   "name": "login-nodejs-express-jwt",
   "version": "1.0.0",
   "description": "Sistema de Login com NodeJs - Express - JWT",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "dev:server": "node server.js"
   },
