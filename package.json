@@ -2,10 +2,10 @@
   "name": "login-nodejs-express-jwt",
   "version": "1.0.0",
   "description": "Sistema de Login com NodeJs - Express - JWT",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "dev:server": "node server.js"
+    "start": "node index.js",
+    "dev:server": "node index.js"
   },
   "repository": {
     "type": "git",
