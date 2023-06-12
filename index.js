@@ -52,15 +52,16 @@ app.set("view engine", "ejs");
 // Public
 app.use(express.static(path.join(__dirname, "public")));
 
+// Mongoose - DB Connection
+connectDB()
+
 // Routes
 app.use("/", express.json(), mainRoute);
 app.use("/user", express.json(), userRoute);
 app.use("/admin", express.json(), adminRoute);
 
-// Mongoose - DB Connection
-connectDB().then(() => {
+
   // Server
   app.listen(port, () => {
     console.log(`Server running in ${port}`);
   });
-});
