@@ -2,7 +2,7 @@
   "name": "login-nodejs-express-jwt",
   "version": "1.0.0",
   "description": "Sistema de Login com NodeJs - Express - JWT",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node index.js",
     "dev:server": "node index.js"
@@ -27,6 +27,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.7.3",
     "nodemailer": "^6.8.0",
+    "npm": "^9.7.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0"
   },

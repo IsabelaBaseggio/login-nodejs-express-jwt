@@ -37,9 +37,9 @@ const settingsPage = (req, res) => {
 const updatingUser = async (req, res) => {
   messages = [];
   let values = await {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
+    firstName: req.body.firstName.trim(),
+    lastName: req.body.lastName.trim(),
+    email: req.body.email.trim(),
   };
 
   // Validating email characters
